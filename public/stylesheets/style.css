@@ -1,8 +1,52 @@
+* {
+  margin: 0px;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+#header {
+  margin: 0px;
+  background-color: #62ba5d;
+  width: 100%;
+  height: 50px;
+}
+
+#innerHeader {
+  margin: auto;
+  background-color: #62ba5d;
+  width: 60%;
+  height: inherit;
+}
+
+#logo span {
+  font-family: "Roboto", sans-serif;
+  font-size: 26pt;
+  font-weight: bold;
+
+  margin-top: 3px;
+  color: #f7f7f7;
+
+  width: 50%;
+  float: left;
+  height: inherit;
+}
+
+#menu span {
+  font-family: "Roboto", sans-serif;
+  font-size: 14pt;
+  font-weight: normal;
+
+  margin-top: 10px;
+  text-align: right;
+  float: right;
+
+  color: #f7f7f7;
+  width: 50%;
+  height: inherit;
 }
