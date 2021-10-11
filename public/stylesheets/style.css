@@ -6,10 +6,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00b7ff;
-}
-
 #header {
   margin: 0px;
   background-color: #62ba5d;
@@ -32,21 +28,29 @@ a {
   margin-top: 3px;
   color: #f7f7f7;
 
-  width: 50%;
+  width: 33%;
   float: left;
   height: inherit;
 }
 
 #menu span {
   font-family: "Roboto", sans-serif;
-  font-size: 14pt;
+  font-size: 16pt;
   font-weight: normal;
 
-  margin-top: 10px;
+  margin-top: 12px;
   text-align: right;
   float: right;
 
-  color: #f7f7f7;
-  width: 50%;
+  color: #469242;
+  width: 66%;
   height: inherit;
+}
+#logo span a {
+  text-decoration: none;
+  color: #f7f7f7;
+}
+#menu span a {
+  text-decoration: none;
+  color: #f7f7f7;
 }
