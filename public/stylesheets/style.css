@@ -3,7 +3,12 @@
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Roboto", sans-serif;
+}
+
+a {
+  color: #f7f7f7;
+  text-decoration: none;
 }
 /* ================== HEADER ================== */
 #header {
@@ -11,6 +16,7 @@ body {
   background-color: #62ba5d;
   width: 100%;
   height: 50px;
+  position: fixed;
 }
 
 #innerHeader {
@@ -46,26 +52,57 @@ body {
   width: 66%;
   height: inherit;
 }
-#logo span a {
-  text-decoration: none;
-  color: #f7f7f7;
-}
-#menu span a {
-  text-decoration: none;
-  color: #f7f7f7;
+
+/* ================== CONTENT ================== */
+
+#content {
+  height: 1000px;
 }
 
 /* ================== FOOTER ================== */
 
 #footer {
-  height: 100px;
+  height: 150px;
   width: 100%;
   background-color: #62ba5d;
-  bottom: 0px;
+  bottom: 0;
 }
 #innerFooter {
   height: inherit;
   width: 60%;
   background-color: inherit;
   margin: auto;
+}
+
+#innerFooter table {
+  background-color: inherit;
+  width: 80%;
+  border: 0;
+  height: 80%;
+  color: #f7f7f7;
+  float: left;
+}
+#innerFooter table th {
+  text-align: left;
+  font-size: 16pt;
+  width: 25%;
+  height: 35px;
+  padding-top: 10px;
+}
+#innerFooter table td {
+  height: 25px;
+}
+#footerLogo span {
+  font-family: "Roboto", sans-serif;
+  font-size: 54pt;
+  font-weight: bold;
+
+  float: right;
+  margin-top: 30px;
+  text-align: right;
+  color: #f7f7f7;
+  width: 20%;
+}
+#footerLogo span a {
+  padding-right: 15px;
 }
