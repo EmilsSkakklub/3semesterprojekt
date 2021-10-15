@@ -4,6 +4,8 @@
 
 body {
   font: 14px "Roboto", sans-serif;
+
+  
 }
 
 a {
@@ -82,6 +84,48 @@ a {
 
   z-index: -1;
 }
+
+/* ================== HOME ================== */
+
+#homeLogInStudent{
+  background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+	background-color:#77b55a;
+	border-radius:3px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:"Roboto", sans-serif;
+	font-size:28px;
+	font-weight:bold;
+	padding:8px 32px;
+	text-decoration:none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+#homeLogInTeacher{
+  font-family:"Roboto", sans-serif;
+  font-size:12px;
+  position: fixed;
+  left: 50%;
+  top: 57%;
+  transform: translate(-50%, -57%);
+  color: 	#696969;
+  cursor:pointer;
+}
+
+#homelinedeco {
+  border-bottom: 1px solid #696969;
+  width: 100px;
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -55%);
+}
+
+
 
 /* ================== FOOTER ================== */
 
