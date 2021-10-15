@@ -101,16 +101,18 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
 #homeLogInTeacher {
   font-family: "Roboto", sans-serif;
   font-size: 12px;
   position: absolute;
   left: 50%;
-  top: 57%;
-  transform: translate(-50%, -57%);
+  top: 56%;
+  transform: translate(-50%, -56%);
   color: #696969;
   cursor: pointer;
+  z-index: 2;
 }
 
 #homelinedeco {
@@ -118,8 +120,9 @@ a {
   width: 100px;
   position: absolute;
   left: 50%;
-  top: 55%;
-  transform: translate(-50%, -55%);
+  top: 54%;
+  transform: translate(-50%, -54%);
+  z-index: 2;
 }
 
 /* ================== FOOTER ================== */
