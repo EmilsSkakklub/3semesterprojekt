@@ -60,7 +60,28 @@ a {
 #content {
   height: 900px;
   padding-top: 50px;
+    
+    
 }
+
+
+
+/* ================== student login  ================== */
+
+#div1{
+  border: 5px solid green;
+  padding: 25px;
+  }
+
+#div1 input[type=text]
+        {
+           background-color: skyblue;
+            padding: 5px;
+            margin: 10px 0px;
+        }
+
+
+
 /* ================== MAP - BACKGROUND ================== */
 
 #vignette {
