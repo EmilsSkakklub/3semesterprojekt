@@ -139,6 +139,18 @@ a {
   z-index: 2;
 }
 
+#logotext{
+  font-family: "Roboto", sans-serif;
+  font-size: 60px;
+  position: absolute;
+  left: 50%;
+  top: 32%;
+  transform: translate(-50%, -32%);
+  z-index: 3;
+  color: black;
+  font-weight: bold;
+}
+
 /* ================== FOOTER ================== */
 
 #footer {
