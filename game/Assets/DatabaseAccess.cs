@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class DatabaseAccess : MonoBehaviour
 {
-    MongoClient client = new MongoClient("mongodb+srv://ploug:Scs67sbb2509@motedu.fbj4y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+    MongoClient client = new MongoClient("mongodb+srv://admin:admin@motedu.fbj4y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
     IMongoDatabase database;
     IMongoCollection<BsonDocument> collection;
   
