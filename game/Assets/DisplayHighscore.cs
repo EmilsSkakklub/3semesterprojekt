@@ -7,14 +7,11 @@ public class DisplayHighscore : MonoBehaviour
 {
 
     private DatabaseAccess databaseAccess;
-
-    private TextMeshPro highscoreOutPut;
     // Start is called before the first frame update
     void Start()
     {
         databaseAccess = GameObject.FindGameObjectWithTag("DatabaseAccess").GetComponent<DatabaseAccess>();
-        highscoreOutPut = GetComponentInChildren<TextMeshPro>();
-        Invoke("DisplayHighScoreInTextMesh", 0f); 
+        Invoke("DisplayHighScoreInTextMesh", 0f);
     }
 
     private async void DisplayHighScoreInTextMesh()
@@ -22,10 +19,12 @@ public class DisplayHighscore : MonoBehaviour
         var task = databaseAccess.GetStudentsFromDataBase();
         var result = await task;
         var output = "";
-        foreach(var student in result)
+        foreach (var student in result)
         {
-           output += "Username: " + student.username + "\n" + "Name: " + student.fname + " " + student.lname + "\n" + "Password: " + student.password + "\n" + "School: " + student.school+ "\n" + "Email: " + student.email +"\n ------------------------------------------\n";
+            output += "Username: " + student.username + "\n" + "Name: " + student.fname + " " + student.lname + "\n" + "Password: " + student.password + "\n" + "School: " + student.school + "\n" + "Email: " + student.email + "\n ------------------------------------------\n";
         }
         Debug.Log(output);
     }
+
+    
 }

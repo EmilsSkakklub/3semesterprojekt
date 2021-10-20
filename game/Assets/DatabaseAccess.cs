@@ -22,9 +22,7 @@ public class DatabaseAccess : MonoBehaviour
         //SaveStudentToDataBase("Limeremir", "kode123", "emrim19@student.sdu.dk", "Emil", "Rimer","SDU - Odense");
         //SaveStudentToDataBase("Anthonio", "kode123", "antpe20@student.sdu.dk", "Anthon", "Kristian Skov Petersen", "SDU - Odense");
         //SaveStudentToDataBase("Carooo", "kode123", "carol19@student.sdu.dk", "Caroline", "Sofie Bue Hansen", "SDU - Odense");
-
-
-
+        Debug.Log(GetStudent("limeremir").username);
 
     }
 
@@ -36,15 +34,32 @@ public class DatabaseAccess : MonoBehaviour
     
     public async Task<List<Student>> GetStudentsFromDataBase()
     {
-        var allScoresTask = collection.FindAsync(new BsonDocument());
-        var studentsAwaited = await allScoresTask;
+        var allStudentsTask = collection.FindAsync(new BsonDocument());
+        var studentsAwaited = await allStudentsTask;
 
         List<Student> students = new List<Student>();
         foreach (var student in studentsAwaited.ToList())
         {
             students.Add(Deserialize(student.ToString()));
         }
+
         return students;
+    }
+
+    public Student GetStudent(string username)
+    {
+        Student targetStudent = new Student();
+        var result = Task.Run(() => GetStudentsFromDataBase()).Result;
+
+        foreach (var student in result)
+        {
+            if(student.username.ToLower() == username.ToLower())
+            {
+                targetStudent = student;
+                break;
+            }
+        }
+        return targetStudent;
     }
     // rawJson:
     // "{ \"_id\" : ObjectId(\"616edff546810a5e8c9e4af5\"),\"username\":\"Plougz123\",\"password\":\"kode123\",\"email\":\"rasmusploug@live.dk\",\"first_name\":\"Rasmus\",\"last_name\":\"Ploug\",\"school\":\"SDU - Odense\"}"
@@ -84,5 +99,4 @@ public class Student
     public string password { get; set; }
     public string email { get; set; }
     public string school { get; set; }
-
 }

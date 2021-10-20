@@ -338,6 +338,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/DatabaseAccess.cs"
 "Assets/DisplayHighscore.cs"
+"Assets/IAsyncEnumerator.cs"
 "Assets/Scripts/MenuScripts/HighscoreMenu.cs"
 "Assets/Scripts/MenuScripts/InfoMenu.cs"
 "Assets/Scripts/MenuScripts/MainMenu.cs"
