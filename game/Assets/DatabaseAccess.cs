@@ -22,7 +22,11 @@ public class DatabaseAccess : MonoBehaviour
         //SaveStudentToDataBase("Limeremir", "kode123", "emrim19@student.sdu.dk", "Emil", "Rimer","SDU - Odense");
         //SaveStudentToDataBase("Anthonio", "kode123", "antpe20@student.sdu.dk", "Anthon", "Kristian Skov Petersen", "SDU - Odense");
         //SaveStudentToDataBase("Carooo", "kode123", "carol19@student.sdu.dk", "Caroline", "Sofie Bue Hansen", "SDU - Odense");
-        Debug.Log(GetStudent("limeremir").username);
+        Debug.Log(GetStudent("limeremir").id);
+        Debug.Log(GetStudent("limeremir").email);
+        UpdateStudent(GetStudent("limeremir").id, "email", "rimer@sdu.dk");
+        Debug.Log(GetStudent("limeremir").email);
+
 
     }
 
@@ -61,12 +65,20 @@ public class DatabaseAccess : MonoBehaviour
         }
         return targetStudent;
     }
+    public void UpdateStudent(string id, string valueToUpdate, string newValue) //CaseSensitive
+    {
+        var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
+        var update = Builders<BsonDocument>.Update.Set(valueToUpdate, newValue);
+
+        collection.UpdateOne(filter, update);
+    }
     // rawJson:
     // "{ \"_id\" : ObjectId(\"616edff546810a5e8c9e4af5\"),\"username\":\"Plougz123\",\"password\":\"kode123\",\"email\":\"rasmusploug@live.dk\",\"first_name\":\"Rasmus\",\"last_name\":\"Ploug\",\"school\":\"SDU - Odense\"}"
     private Student Deserialize(string rawJson)
     {
         var student = new Student();
 
+        var id = rawJson.Substring(rawJson.IndexOf("ObjectId")+10, 24);
         var stringWithoutID = rawJson.Substring(rawJson.IndexOf("),") + 4);
         var username = stringWithoutID.Substring(stringWithoutID.IndexOf("username") + 13, stringWithoutID.IndexOf("password")-4 - (stringWithoutID.IndexOf("username") + 13));
         var password = stringWithoutID.Substring(stringWithoutID.IndexOf("password") + 13, stringWithoutID.IndexOf("email") - 4 - (stringWithoutID.IndexOf("password") + 13));
@@ -75,6 +87,7 @@ public class DatabaseAccess : MonoBehaviour
         var lname = stringWithoutID.Substring(stringWithoutID.IndexOf("last_name") + 14, stringWithoutID.IndexOf("school") - 4 - (stringWithoutID.IndexOf("last_name") + 14));
         var school = stringWithoutID.Substring(stringWithoutID.IndexOf("school") + 11, stringWithoutID.IndexOf("}")-2 - (stringWithoutID.IndexOf("school") + 11));
 
+        student.id = id;
         student.username = username;
         student.password = password;
         student.email = email;
@@ -99,4 +112,5 @@ public class Student
     public string password { get; set; }
     public string email { get; set; }
     public string school { get; set; }
+    public string id { get; set; }
 }

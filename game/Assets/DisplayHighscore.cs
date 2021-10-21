@@ -21,7 +21,7 @@ public class DisplayHighscore : MonoBehaviour
         var output = "";
         foreach (var student in result)
         {
-            output += "Username: " + student.username + "\n" + "Name: " + student.fname + " " + student.lname + "\n" + "Password: " + student.password + "\n" + "School: " + student.school + "\n" + "Email: " + student.email + "\n ------------------------------------------\n";
+            output += "Id: " + student.id + "\n" + "Username: " + student.username + "\n" + "Name: " + student.fname + " " + student.lname + "\n" + "Password: " + student.password + "\n" + "School: " + student.school + "\n" + "Email: " + student.email + "\n ------------------------------------------\n";
         }
         Debug.Log(output);
     }
