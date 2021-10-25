@@ -65,26 +65,26 @@ a {
 /* ================== STUDENT LOGIN ================== */
 
 #div1 {
-  border: 5px solid green;
   padding: 25px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-    background-color: #77b55a;
- 
+  background-color: #62ba5d;
 
- 
+  z-index: 2;
 }
 
-#div1 input[type="text"] {
+#div1 input {
   font-family: "Roboto", sans-serif;
   background-color: white;
-  padding: 5px;
-  margin: 10px 0px;
-
+  padding: 2px;
+  border: none;
+  border-radius: 2px;
 }
-
+#div1 h1 {
+  color: #f7f7f7;
+}
 
 /* ================== MAP - BACKGROUND ================== */
 
@@ -150,7 +150,7 @@ a {
   z-index: 2;
 }
 
-#logotext{
+#logotext {
   font-family: "Roboto", sans-serif;
   font-size: 60px;
   position: absolute;
@@ -163,8 +163,7 @@ a {
 }
 
 /* ================== ABOUT ================== */
-#description{
-
+#description {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
   margin-top: 150px;
@@ -174,9 +173,8 @@ a {
   left: 50%;
   top: 10%;
   transform: translate(-50%, -10%);
-
 }
-#aboutheadline{
+#aboutheadline {
   font-family: "Roboto", sans-serif;
   font-size: 27px;
   position: absolute;
@@ -185,8 +183,7 @@ a {
   transform: translate(-50%, -15%);
 }
 
-#personbox1{
-
+#personbox1 {
   background-color: White;
   width: 150px;
   padding: 50px;
@@ -198,8 +195,7 @@ a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-#personbox2{
-
+#personbox2 {
   background-color: White;
   width: 150px;
   padding: 50px;
@@ -212,8 +208,7 @@ a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-#personbox3{
-
+#personbox3 {
   background-color: white;
   width: 150px;
   padding: 50px;
@@ -226,8 +221,7 @@ a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-#personbox4{
-
+#personbox4 {
   background-color: white;
   width: 150px;
   padding: 50px;
@@ -240,20 +234,18 @@ a {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-#name{
-
+#name {
   font-family: "Roboto", sans-serif;
   font-size: 35px;
   text-align: center;
 }
 
-#Headlinebox{
-
+#Headlinebox {
   width: 2000px;
-  
-  background-color: #D5F5E3;
+
+  background-color: #d5f5e3;
   padding: 180px;
-  
+
   z-index: 4;
 }
 

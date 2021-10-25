@@ -2,18 +2,21 @@ extends layout
 
 block content
     #content
+        include worldmap_bg
         #div1
-            h1  Elev Login 
-            p Velkommen til login siden for eleven
+            h1 login
+            br
             form
-                label(for='ENavn') Elevens Navn 
-                input#ENavn(type='text' navn='Enavn')
+                label(for='ENavn') username
+                br
+                input#username(type='text' name ='username')
                 br
                 br
-                label(for='Ekode') Elevens Kode 
-                input#ENavn(type='text' navn='Enavn')
+                label(for='Ekode') password
+                br
+                input#password(type='password' name ='password')
                 br
                 br
-                input#submit(type='submit' value='Submit')
+                input#login(type='submit' value='Log-In')
 
 
