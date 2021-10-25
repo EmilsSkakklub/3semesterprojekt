@@ -67,13 +67,24 @@ a {
 #div1 {
   border: 5px solid green;
   padding: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+    background-color: #77b55a;
+ 
+
+ 
 }
 
 #div1 input[type="text"] {
-  background-color: skyblue;
+  font-family: "Roboto", sans-serif;
+  background-color: white;
   padding: 5px;
   margin: 10px 0px;
+
 }
+
 
 /* ================== MAP - BACKGROUND ================== */
 
