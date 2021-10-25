@@ -47,5 +47,9 @@ router.get('/game', function(req, res, next) {
   res.render('game', { title: 'game - motedu.' });
 });
 
+router.get('/signin_student', function(req, res, next) {
+	res.render('signin_student', { title: 'Sign-in - motedu.' });
+  });
+
 
 module.exports = router;

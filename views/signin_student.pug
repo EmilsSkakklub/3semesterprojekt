@@ -1,0 +1,37 @@
+extends layout
+
+block content 
+    #content 
+        h1 Sign-in
+        br
+        form
+            label(for='firstName') First Name
+            br
+            input(type='text' name ='firstName')
+            br
+            br
+            label(for='lastName') Last Name
+            br
+            input(type='text' name ='lastName')
+            br
+            br
+            label(for='username') Username
+            br
+            input(type='text' name ='username')
+            br
+            br
+            label(for='email') Email
+            br
+            input(type='text' name ='email')
+            br
+            br
+            label(for='password') Password
+            br
+            input(type='password' name ='password')
+            br
+            label(for='rePassword') Reenter password
+            br
+            input(type='password' name ='rePassword')
+            br
+            br
+            input#login(type='submit' value='Sign-in')
