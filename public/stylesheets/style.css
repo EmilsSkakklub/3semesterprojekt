@@ -151,6 +151,101 @@ a {
   font-weight: bold;
 }
 
+/* ================== ABOUT ================== */
+#description{
+
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  margin-top: 150px;
+  text-align: center;
+  float: right;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -10%);
+
+}
+#aboutheadline{
+  font-family: "Roboto", sans-serif;
+  font-size: 27px;
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  transform: translate(-50%, -15%);
+}
+
+#personbox1{
+
+  background-color: White;
+  width: 150px;
+  padding: 50px;
+  margin: 20px;
+  position: absolute;
+  left: 7%;
+  top: 65%;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#personbox2{
+
+  background-color: White;
+  width: 150px;
+  padding: 50px;
+  margin: 20px;
+
+  position: absolute;
+  left: 29%;
+  top: 65%;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#personbox3{
+
+  background-color: white;
+  width: 150px;
+  padding: 50px;
+  margin: 20px;
+
+  position: absolute;
+  left: 51%;
+  top: 65%;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#personbox4{
+
+  background-color: white;
+  width: 150px;
+  padding: 50px;
+  margin: 20px;
+
+  position: absolute;
+  left: 73%;
+  top: 65%;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#name{
+
+  font-family: "Roboto", sans-serif;
+  font-size: 35px;
+  text-align: center;
+}
+
+#Headlinebox{
+
+  width: 2000px;
+  
+  background-color: #D5F5E3;
+  padding: 180px;
+  
+  z-index: 4;
+}
+
 /* ================== FOOTER ================== */
 
 #footer {
