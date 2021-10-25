@@ -1,5 +1,12 @@
-var express = require('express');
+var express = require('express'), 
+	bodyParser = require("body-parser");
 var router = express.Router();
+
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
 
 var client;
 var MongoClient = require('mongodb').MongoClient;
@@ -18,7 +25,7 @@ MongoClient.connect("mongodb+srv://admin:admin@motedu.fbj4y.mongodb.net/myFirstD
 });
 
 
-/* GET home page. */
+/*============= GETS ============= */
 router.get('/', function(req, res, next) {
   res.render('home', { title: 'motedu.' });
 });
@@ -51,5 +58,37 @@ router.get('/signin_student', function(req, res, next) {
 	res.render('signin_student', { title: 'Sign-in - motedu.' });
   });
 
+
+//============= POSTS =============
+router.post('/TryLoginStudent', function (request, respond) {
+	var playerData = request.body;
+	//Extracts the field values from the request
+	console.log("HTTP Post Request: /TryLoginStudent?username=" + playerData.username + "&password=" + playerData.password);
+
+	//specifies the database within the cluster and collection within the database
+	var collection = client.db('UsersDB').collection('Students');
+
+	//Returns a single document, if one fits the conditions
+	collection.findOne({"username": playerData.username, "password": playerData.password }, function (findError, result) {
+		//Check for Errors
+		if (!findError) {
+			console.log("MongoDB - Find: No Errors");
+		}
+		else {
+			console.log("MongoDB - Find: Error");
+			console.log(findError);
+		}
+
+		//Sends the player data back to Unity as a string
+		if (!result) {
+			console.log("Player not found")
+			respond.send("Player not found");
+		}
+		else {
+			console.log("Player logged in");
+			respond.send("Player logged in");
+		}
+	});
+});
 
 module.exports = router;

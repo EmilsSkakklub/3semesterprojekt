@@ -6,13 +6,13 @@ block content
         #div1
             h1 login
             br
-            form
-                label(for='ENavn') username
+            form(action='/TryLoginStudent' method='post')
+                label(for='un') username:
                 br
                 input#username(type='text' name ='username')
                 br
                 br
-                label(for='Ekode') password
+                label(for='pw') password:
                 br
                 input#password(type='password' name ='password')
                 br
@@ -20,6 +20,6 @@ block content
                 input#login(type='submit' value='Log-In')
                 br
                 br
-                a.btn(href="signin_student") Sign-in
+            a.btn(href="signin_student") Sign-in
 
 
