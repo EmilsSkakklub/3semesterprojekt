@@ -60,10 +60,10 @@ router.get('/signin_student', function(req, res, next) {
 
 
 //============= POSTS =============
-router.post('/TryLoginStudent', function (request, respond) {
-	var playerData = request.body;
+router.post('/student_login', function (req, res) {
+	var playerData = req.body;
 	//Extracts the field values from the request
-	console.log("HTTP Post Request: /TryLoginStudent?username=" + playerData.username + "&password=" + playerData.password);
+	console.log("HTTP Post Request: /student_login?username=" + playerData.username + "&password=" + playerData.password);
 
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
@@ -82,11 +82,11 @@ router.post('/TryLoginStudent', function (request, respond) {
 		//Sends the player data back to Unity as a string
 		if (!result) {
 			console.log("Player not found")
-			respond.send("Player not found");
+			res.send("Player not found");
 		}
 		else {
 			console.log("Player logged in");
-			respond.send("Player logged in");
+			res.render('game', { title: 'motedu.', username: playerData.username });
 		}
 	});
 });
