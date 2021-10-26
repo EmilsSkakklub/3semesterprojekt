@@ -139,7 +139,7 @@ router.post('/getuserinfo', function (req, res) {
 			})}
 		else {
 			console.log("StudentInfo Sent");
-			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}"}`);
+			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}"}`);
 		}
 	});
 });

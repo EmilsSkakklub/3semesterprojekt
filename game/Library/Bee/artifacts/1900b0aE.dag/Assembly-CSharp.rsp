@@ -336,12 +336,13 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
-"Assets/DatabaseAccess.cs"
-"Assets/DisplayHighscore.cs"
-"Assets/IAsyncEnumerator.cs"
+"Assets/Scripts/Database(old)/DatabaseAccess.cs"
+"Assets/Scripts/Database(old)/DisplayHighscore.cs"
+"Assets/Scripts/login/loginManager.cs"
 "Assets/Scripts/MenuScripts/HighscoreMenu.cs"
 "Assets/Scripts/MenuScripts/InfoMenu.cs"
 "Assets/Scripts/MenuScripts/MainMenu.cs"
+"Assets/Scripts/User.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"
@@ -376,6 +377,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexShakeB.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
+"Assets/UpdateCharInfo.cs"
 -langversion:8.0
 
 /deterministic

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class User : MonoBehaviour
     public string _lname;
     public string _email;
     public string _school;
+    public int _exp;
 
     // Start is called before the first frame update
     void Awake()
@@ -68,6 +70,7 @@ public class User : MonoBehaviour
         _email = rawjson.Substring(10, rawjson.IndexOf("fname") - 3 - 10);
         _fname = rawjson.Substring(rawjson.IndexOf("fname") + 8, rawjson.IndexOf("lname") - 3 - (rawjson.IndexOf("fname") + 8));
         _lname = rawjson.Substring(rawjson.IndexOf("lname") + 8, rawjson.IndexOf("school") - 4 - (rawjson.IndexOf("lname") + 8));
-        _school = rawjson.Substring(rawjson.IndexOf("school") + 9, rawjson.IndexOf("}") - 1 - (rawjson.IndexOf("school") + 9));
+        _school = rawjson.Substring(rawjson.IndexOf("school") + 9, rawjson.IndexOf("exp") - 4 - (rawjson.IndexOf("school") + 9));
+        _exp = Int32.Parse(rawjson.Substring(rawjson.IndexOf("exp") + 6, rawjson.IndexOf("}") - 1 - (rawjson.IndexOf("exp") + 6))); 
     }
 }
