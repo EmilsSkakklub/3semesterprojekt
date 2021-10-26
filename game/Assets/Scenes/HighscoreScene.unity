@@ -1341,7 +1341,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 756157202}
         m_TargetAssemblyTypeName: HighscoreMenu, Assembly-CSharp
-        m_MethodName: LoadProfileScene
+        m_MethodName: LoadHomeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

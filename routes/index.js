@@ -60,10 +60,10 @@ router.get('/signin_student', function(req, res, next) {
 
 
 //============= POSTS =============
-router.post('/student_login', function (req, res) {
+router.post('/login', function (req, res) {
 	var playerData = req.body;
 	//Extracts the field values from the request
-	console.log("HTTP Post Request: /student_login?username=" + playerData.username + "&password=" + playerData.password);
+	console.log("HTTP Post Request: /login?username=" + playerData.username + "&password=" + playerData.password);
 
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
@@ -81,12 +81,23 @@ router.post('/student_login', function (req, res) {
 
 		//Sends the player data back to Unity as a string
 		if (!result) {
-			console.log("Player not found")
-			res.send("Player not found");
-		}
+			console.log("Student not found");
+			var collection = client.db('UsersDB').collection('Teachers');
+			collection.findOne({"username": playerData.username, "password": playerData.password }, function (findError, result) {
+	
+				//Sends the player data back to Unity as a string
+				if (!result) {
+					console.log("Teacher not found");
+					res.send("Player not found");
+				}
+				else {
+					console.log("Teacher logged in");
+					res.send("Player logged in");
+				}
+			})}
 		else {
-			console.log("Player logged in");
-			res.render('game', { title: 'motedu.', username: playerData.username });
+			console.log("Student logged in");
+			res.send("Player logged in");
 		}
 	});
 });

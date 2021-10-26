@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class InfoMenu : MonoBehaviour
 {
-    public void LoadProfileScene() {
-        SceneManager.LoadScene("ProfileScene");
+    public void LoadHomeScene() {
+        SceneManager.LoadScene("HomeScene");
     }
 }

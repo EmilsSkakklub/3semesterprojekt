@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class HighscoreMenu : MonoBehaviour
 {
-    public void LoadProfileScene() {
-        SceneManager.LoadScene("ProfileScene");
+    public void LoadHomeScene() {
+        SceneManager.LoadScene("HomeScene");
     }
 }
