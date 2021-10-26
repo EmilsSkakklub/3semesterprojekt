@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DatabaseAccess
   - User
+  - bg
   layers:
   - Default
   - TransparentFX
