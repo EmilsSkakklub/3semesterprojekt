@@ -298,3 +298,16 @@ a {
 #footerLogo span a {
   padding-right: 15px;
 }
+
+/* ================== SIGN_IN ================== */
+
+#div2 {
+  padding: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
