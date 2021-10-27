@@ -4,15 +4,15 @@ block content
     #content 
         h1 Sign-in
         br
-        form
-            label(for='firstName') First Name
+        form(action="/signin_student" method="post")
+            label(for='first_name') First Name
             br
-            input(type='text' name ='firstName')
+            input(type='text' name ='first_name')
             br
             br
-            label(for='lastName') Last Name
+            label(for='last_name') Last Name
             br
-            input(type='text' name ='lastName')
+            input(type='text' name ='last_name')
             br
             br
             label(for='username') Username
@@ -25,6 +25,11 @@ block content
             input(type='text' name ='email')
             br
             br
+            label(for='school') School
+            br
+            input(type='text' name ='school')
+            br
+            br
             label(for='password') Password
             br
             input(type='password' name ='password')
@@ -34,4 +39,4 @@ block content
             input(type='password' name ='rePassword')
             br
             br
-            input#login(type='submit' value='Sign-in')
+            input#login(type='submit' value='Submit')

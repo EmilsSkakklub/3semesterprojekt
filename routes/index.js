@@ -2,6 +2,8 @@ var express = require('express'),
 	bodyParser = require("body-parser");
 var router = express.Router();
 
+
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -56,7 +58,7 @@ router.get('/game', function(req, res, next) {
 
 router.get('/signin_student', function(req, res, next) {
 	res.render('signin_student', { title: 'Sign-in - motedu.' });
-  });
+});
 
 
 //============= POSTS =============
@@ -67,7 +69,7 @@ router.post('/login', function (req, res) {
 
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
-
+	
 	//Returns a single document, if one fits the conditions
 	collection.findOne({"username": playerData.username, "password": playerData.password }, function (findError, result) {
 		//Check for Errors
@@ -102,46 +104,38 @@ router.post('/login', function (req, res) {
 	});
 });
 
-router.post('/getuserinfo', function (req, res) {
-	var playerData = req.body;
-	//Extracts the field values from the request
-	console.log("HTTP Post Request: /getuserinfo?username=" + playerData.username);
 
-	//specifies the database within the cluster and collection within the database
+
+
+router.post('/signin_student', async (req, res) => {
+
 	var collection = client.db('UsersDB').collection('Students');
+		try{
+			let studentData = req.body;
 
-	//Returns a single document, if one fits the conditions
-	collection.findOne({"username": playerData.username}, function (findError, result) {
-		//Check for Errors
-		if (!findError) {
-			console.log("MongoDB - Find: No Errors");
-		}
-		else {
-			console.log("MongoDB - Find: Error");
-			console.log(findError);
-		}
-
-		//Sends the player data back to Unity as a string
-		if (!result) {
-			console.log("StudentInfo not found");
-			var collection = client.db('UsersDB').collection('Teachers');
-			collection.findOne({"username": playerData.username}, function (findError, result) {
-	
-				//Sends the player data back to Unity as a string
-				if (!result) {
-					console.log("Teacher not found");
-					res.send("Info not found");
+			collection.findOne({"username": studentData.username}, async (findError, result) => {
+				if(findError){
+					console.log("Username already exists");
 				}
-				else {
-					console.log("TeacherInfo Sent");
-					res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}"}`);
+				else{
+					if(result != null){
+						console.log("Username already Exists");
+					}
+					else if(result == null){
+						if(studentData.password == studentData.rePassword){
+							var newStudent = await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.first_name, "last_name": studentData.last_name, "school": studentData.school, "exp": 0});
+							console.log("New student added!");
+						}
+						else{
+							console.log("Please enter in the same password.");
+						}
+					}
 				}
-			})}
-		else {
-			console.log("StudentInfo Sent");
-			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}"}`);
+			});
+		}
+		catch(error){
+			console.log(error);
 		}
 	});
-});
 
 module.exports = router;
