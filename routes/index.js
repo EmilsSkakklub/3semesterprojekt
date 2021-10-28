@@ -103,6 +103,7 @@ router.post('/login', function (req, res) {
 		}
 	});
 });
+
 router.post('/getuserinfo', function (req, res) {
 	var playerData = req.body;
 	//Extracts the field values from the request
@@ -145,6 +146,68 @@ router.post('/getuserinfo', function (req, res) {
 	});
 });
 
+router.post('/getexp', function (req, res) {
+	var playerData = req.body;
+	//Extracts the field values from the request
+	console.log("HTTP Post Request: /getexp?username=" + playerData.username);
+
+	//specifies the database within the cluster and collection within the database
+	var collection = client.db('UsersDB').collection('Students');
+
+	//Returns a single document, if one fits the conditions
+	collection.findOne({"username": playerData.username}, function (findError, result) {
+		//Check for Errors
+		if (!findError) {
+			console.log("MongoDB - Find: No Errors");
+		}
+		else {
+			console.log("MongoDB - Find: Error");
+			console.log(findError);
+		}
+
+		//Sends the player data back to Unity as a string
+		if (!result) {
+			console.log("StudentInfo not found");
+			}
+		else {
+			console.log("StudentInfo Sent");
+			res.send(`${result.exp}`);
+		}
+	});
+});
+
+router.post('/gethighscores', async (req, res) => {
+
+	//specifies the database within the cluster and collection within the database
+	var collection = client.db('UsersDB').collection('Students');
+
+	var collCount;
+	await collection.count().then((count) => {
+		collCount = count;
+	});
+
+	collection.find({ "exp": { $gte: 0 } }).toArray().then((result) => {
+		if(!result){
+			console.log("No result")
+			res.send("Info not found")
+		}else{
+			
+			var HighscoreJson = ""
+
+			HighscoreJson += "{"
+			HighscoreJson += `"Count":"${collCount}",`
+			for(var i = 0; i<result.length;i++){
+				HighscoreJson += `"${result[i].username}":"${result[i].exp}",`
+			}
+			//HighscoreJson = HighscoreJson.substring(0, HighscoreJson.length - 1);
+			HighscoreJson += "}"
+
+			console.log(HighscoreJson);
+			res.send(HighscoreJson);
+		}		
+	});
+});
+
 router.post('/signin_student', async (req, res) => {
 
 	var collection = client.db('UsersDB').collection('Students');
@@ -161,7 +224,7 @@ router.post('/signin_student', async (req, res) => {
 					}
 					else if(result == null){
 						if(studentData.password == studentData.rePassword){
-							var newStudent = await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.first_name, "last_name": studentData.last_name, "school": studentData.school, "exp": 0});
+							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.first_name, "last_name": studentData.last_name, "school": studentData.school, "exp": 0});
 							console.log("New student added!");
 						}
 						else{
@@ -174,6 +237,6 @@ router.post('/signin_student', async (req, res) => {
 		catch(error){
 			console.log(error);
 		}
-	});
+});
 
 module.exports = router;

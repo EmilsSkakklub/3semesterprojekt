@@ -71,6 +71,6 @@ public class User : MonoBehaviour
         _fname = rawjson.Substring(rawjson.IndexOf("fname") + 8, rawjson.IndexOf("lname") - 3 - (rawjson.IndexOf("fname") + 8));
         _lname = rawjson.Substring(rawjson.IndexOf("lname") + 8, rawjson.IndexOf("school") - 4 - (rawjson.IndexOf("lname") + 8));
         _school = rawjson.Substring(rawjson.IndexOf("school") + 9, rawjson.IndexOf("exp") - 4 - (rawjson.IndexOf("school") + 9));
-        _exp = Int32.Parse(rawjson.Substring(rawjson.IndexOf("exp") + 6, rawjson.IndexOf("}") - 1 - (rawjson.IndexOf("exp") + 6))); 
+        //_exp = Int32.Parse(rawjson.Substring(rawjson.IndexOf("exp") + 6, rawjson.IndexOf("}") - 1 - (rawjson.IndexOf("exp") + 6))); 
     }
 }

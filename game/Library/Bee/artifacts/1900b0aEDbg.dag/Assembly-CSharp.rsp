@@ -378,6 +378,7 @@
 "Assets/TextMesh Pro/Examples & Extras/Scripts/VertexZoom.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/WarpTextExample.cs"
 "Assets/UpdateCharInfo.cs"
+"Assets/UpdateHighscores.cs"
 -langversion:8.0
 
 /deterministic
