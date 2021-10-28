@@ -8,7 +8,7 @@ public class UpdateHighscores : MonoBehaviour
 {
     int users;
     List<string> highscoreList;
-    SortedList<int, string> sortedHighscoreList;
+    SortedList<int, string> sortedHighscoreList = new SortedList<int, string>();
 
     private string URI = "http://localhost:3000/";
 
@@ -60,6 +60,7 @@ public class UpdateHighscores : MonoBehaviour
                         string username = CutUsername(highscoreList[i]);
                         sortedHighscoreList.Add(level, username);
                     }
+                    Debug.Log(sortedHighscoreList);
                 }
             }
         }
