@@ -6,8 +6,7 @@ using UnityEngine.Networking;
 
 public class UpdateHighscores : MonoBehaviour
 {
-    int users;
-    List<string> UncutHighscoreList;
+    int amountOfUsers;
     SortedList<int, string> sortedUsernameList = new SortedList<int, string>();
     List<int> LevelList = new List<int>();
     private string URI = "http://localhost:3000/";
@@ -45,37 +44,37 @@ public class UpdateHighscores : MonoBehaviour
                 }
                 else
                 {
-                    users = GetCount(response);
-                    UncutHighscoreList = MakeHighscoreList(response);
+                    
+                    MakeHighscoreLists(response);
+                    
                     Debug.Log(response);
-
-                    for(int i = 0; i < UncutHighscoreList.Count; i++)
+                    for(int i = amountOfUsers-1; i >= 0 ; i--)
                     {
-                        int level = CutLevel(UncutHighscoreList[i]);
-                        string username = CutUsername(UncutHighscoreList[i]);
-                        sortedUsernameList.Add(level, username);
-                        LevelList.Add(level);
+                        Debug.Log(sortedUsernameList[LevelList[i]] +": " + LevelList[i]);
                     }
-                    LevelList.Sort();
-
-                    Debug.Log(sortedUsernameList[LevelList[1]]);
-                    Debug.Log(LevelList[1]);
                 }
             }
         }
     }
 
-    public List<string> MakeHighscoreList(string json)
+    public void MakeHighscoreLists(string json)
     {
-
+        amountOfUsers = GetCount(json);
         List<string> HighscoreList = new List<string>();
-        for(int i = users; i>0 ; i--)
+
+        for(int i = amountOfUsers; i>0 ; i--)
         {
                 HighscoreList.Add(CutJson(json, ",", i));    
         }
-    
-        return HighscoreList;
-
+        
+        for (int i = 0; i < HighscoreList.Count; i++)
+        {
+            int level = CutLevel(HighscoreList[i]);
+            string username = CutUsername(HighscoreList[i]);
+            sortedUsernameList.Add(level, username);
+            LevelList.Add(level);
+        }
+        LevelList.Sort();
     }
     public string CutJson(string json, string comma, int i)
     {
