@@ -1,42 +1,45 @@
 extends layout
 
 block content 
-    #content 
-        h1 Sign-in
-        br
-        form(action="/signin_student" method="post")
-            label(for='first_name') First Name
+    #content
+        include worldmap_bg
+        #div2 
+  
+            h1 Sign-in
             br
-            input(type='text' name ='first_name')
-            br
-            br
-            label(for='last_name') Last Name
-            br
-            input(type='text' name ='last_name')
-            br
-            br
-            label(for='username') Username
-            br
-            input(type='text' name ='username')
-            br
-            br
-            label(for='email') Email
-            br
-            input(type='text' name ='email')
-            br
-            br
-            label(for='school') School
-            br
-            input(type='text' name ='school')
-            br
-            br
-            label(for='password') Password
-            br
-            input(type='password' name ='password')
-            br
-            label(for='rePassword') Reenter password
-            br
-            input(type='password' name ='rePassword')
-            br
-            br
-            input#login(type='submit' value='Submit')
+            form(action="/signin_student" method="post")
+                label(for='first_name') First Name
+                br
+                input(type='text' name ='first_name')
+                br
+                br
+                label(for='last_name') Last Name
+                br
+                input(type='text' name ='last_name')
+                br
+                br
+                label(for='username') Username
+                br
+                input(type='text' name ='username')
+                br
+                br
+                label(for='email') Email
+                br
+                input(type='text' name ='email')
+                br
+                br
+                label(for='school') School
+                br
+                input(type='text' name ='school')
+                br
+                br
+                label(for='password') Password
+                br
+                input(type='password' name ='password')
+                br
+                label(for='rePassword') Reenter password
+                br
+                input(type='password' name ='rePassword')
+                br
+                br
+                input#login(type='submit' value='Submit')
