@@ -7,9 +7,9 @@ using UnityEngine.Networking;
 public class UpdateHighscores : MonoBehaviour
 {
     int users;
-    List<string> highscoreList;
-    SortedList<int, string> sortedHighscoreList = new SortedList<int, string>();
-
+    List<string> UncutHighscoreList;
+    SortedList<int, string> sortedUsernameList = new SortedList<int, string>();
+    List<int> LevelList = new List<int>();
     private string URI = "http://localhost:3000/";
 
     // Start is called before the first frame update
@@ -46,21 +46,20 @@ public class UpdateHighscores : MonoBehaviour
                 else
                 {
                     users = GetCount(response);
-                    highscoreList = MakeHighscoreList(response);
+                    UncutHighscoreList = MakeHighscoreList(response);
                     Debug.Log(response);
-                    /*foreach(var user in highscoreList)
+
+                    for(int i = 0; i < UncutHighscoreList.Count; i++)
                     {
-                        int level = CutLevel(user);
-                        string username = CutUsername(user);
-                        sortedHighscoreList.Add(level, username);
-                    }*/
-                    for(int i = 0; i < highscoreList.Count; i++)
-                    {
-                        int level = CutLevel(highscoreList[i]);
-                        string username = CutUsername(highscoreList[i]);
-                        sortedHighscoreList.Add(level, username);
+                        int level = CutLevel(UncutHighscoreList[i]);
+                        string username = CutUsername(UncutHighscoreList[i]);
+                        sortedUsernameList.Add(level, username);
+                        LevelList.Add(level);
                     }
-                    Debug.Log(sortedHighscoreList);
+                    LevelList.Sort();
+
+                    Debug.Log(sortedUsernameList[LevelList[1]]);
+                    Debug.Log(LevelList[1]);
                 }
             }
         }
@@ -100,13 +99,13 @@ public class UpdateHighscores : MonoBehaviour
     public int CutLevel(string userString)
     {
         int level = int.Parse(userString.Substring(userString.IndexOf(":") + 2, userString.LastIndexOf("\"") - (userString.IndexOf(":") + 2)));
-        Debug.Log(level);
+        //Debug.Log(level);
         return level;
     }
     public string CutUsername(string userString)
     {
         string username = userString.Substring(1,userString.IndexOf(":")-2);
-        Debug.Log(username);
+        //Debug.Log(username);
         return username;
     }
     public int GetCount(string json)
