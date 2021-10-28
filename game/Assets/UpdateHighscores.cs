@@ -3,17 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class UpdateHighscores : MonoBehaviour
 {
+    
+    SortedList<int, string> sortedList = new SortedList<int, string>();
+    List<int> ExpList = new List<int>();
+    List<String> UsernameList = new List<String>();
+    User user;
+   
+
     int amountOfUsers;
-    SortedList<int, string> sortedUsernameList = new SortedList<int, string>();
-    List<int> LevelList = new List<int>();
     private string URI = "http://localhost:3000/";
 
+    Text HighscoreBox;
+    Text Username;
+    Text YourRank;
     // Start is called before the first frame update
     void Start()
     {
+        user = GameObject.Find("User").GetComponent<User>();
+        YourRank = GameObject.Find("PersonalScoreBG").GetComponentInChildren<Text>();
+        Username = GameObject.Find("PersonalScoreText").GetComponentInChildren<Text>();
+
         StartCoroutine("UpdateHighscore");
         
     }
@@ -44,19 +57,11 @@ public class UpdateHighscores : MonoBehaviour
                 }
                 else
                 {
-                    
                     MakeHighscoreLists(response);
-                    
-                    Debug.Log(response);
-                    for(int i = amountOfUsers-1; i >= 0 ; i--)
-                    {
-                        Debug.Log(sortedUsernameList[LevelList[i]] +": " + LevelList[i]);
-                    }
                 }
             }
         }
     }
-
     public void MakeHighscoreLists(string json)
     {
         amountOfUsers = GetCount(json);
@@ -64,17 +69,60 @@ public class UpdateHighscores : MonoBehaviour
 
         for(int i = amountOfUsers; i>0 ; i--)
         {
-                HighscoreList.Add(CutJson(json, ",", i));    
+                HighscoreList.Add(CutJson(json, ",", i));
+            
         }
         
-        for (int i = 0; i < HighscoreList.Count; i++)
+        for (int i = 0; i < amountOfUsers; i++)
         {
             int level = CutLevel(HighscoreList[i]);
             string username = CutUsername(HighscoreList[i]);
-            sortedUsernameList.Add(level, username);
-            LevelList.Add(level);
+            sortedList.Add(level, username);
+            ExpList.Add(level);
         }
-        LevelList.Sort();
+        ExpList.Sort();
+        ExpList.Reverse();
+        for (int i = 0; i < amountOfUsers; i++)
+        {
+            UsernameList.Add(sortedList[ExpList[i]]);           
+        }
+        UpdateHighscoreText();
+    }
+    public void UpdateHighscoreText()
+    {
+        for(int i = 0; i <= 23; i++)
+        {
+            HighscoreBox = GameObject.Find("Highscore (" + i + ")").GetComponentInChildren<Text>();
+
+            if (i < amountOfUsers)
+            {
+                int level = 0;
+                int exp = ExpList[i];
+                while (exp >= 100)
+                {
+                    level++;
+                    exp -= 100;
+                }
+                HighscoreBox.text = UsernameList[i] + "\nLevel " + level;
+                
+                if(UsernameList[i] == user._username)
+                {
+                    user._personalRank = i + 1;
+                }
+            }
+            else
+            {
+                HighscoreBox.text = "-\n-";
+            }
+            
+
+        }
+        UpdatePersonalRank();
+    }
+    public void UpdatePersonalRank()
+    {
+        YourRank.text = "Your Rank: " + user._personalRank;
+        Username.text = user._username;
     }
     public string CutJson(string json, string comma, int i)
     {

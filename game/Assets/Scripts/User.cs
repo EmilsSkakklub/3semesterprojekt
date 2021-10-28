@@ -15,6 +15,8 @@ public class User : MonoBehaviour
     public string _school;
     public int _exp;
 
+    public int _personalRank;
+
     // Start is called before the first frame update
     void Awake()
     {
