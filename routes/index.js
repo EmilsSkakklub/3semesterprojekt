@@ -208,27 +208,35 @@ router.post('/gethighscores', async (req, res) => {
 	});
 });
 
+
+
 router.post('/signin_student', async (req, res) => {
+
+	//console.log(req.body);
 
 	var collection = client.db('UsersDB').collection('Students');
 		try{
 			let studentData = req.body;
+			console.log(studentData);
 
 			collection.findOne({"username": studentData.username}, async (findError, result) => {
 				if(findError){
-					console.log("Username already exists");
+					console.log(findError);
 				}
 				else{
 					if(result != null){
 						console.log("Username already Exists");
+						res.send("InvalidUsername")
 					}
 					else if(result == null){
 						if(studentData.password == studentData.rePassword){
-							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.first_name, "last_name": studentData.last_name, "school": studentData.school, "exp": 0});
+							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.fname, "last_name": studentData.lname, "school": studentData.school, "exp": 0});
 							console.log("New student added!");
+							res.send("YouDidIt");
 						}
 						else{
 							console.log("Please enter in the same password.");
+							res.send("WrongPassword")
 						}
 					}
 				}
@@ -238,5 +246,7 @@ router.post('/signin_student', async (req, res) => {
 			console.log(error);
 		}
 });
+
+
 
 module.exports = router;

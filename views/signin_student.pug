@@ -1,4 +1,44 @@
 extends layout
+block scripts 
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script.
+        $(document).ready(function(){
+            $("#login").on('click', function(){
+                var fname = $('#fName').val();
+                var lname = $('#lName').val();
+                var username = $('#username').val();
+                var email = $('#email').val();
+                var school = $('#school').val();
+                var password = $('#password').val();
+                var rePassword = $('#rePassword').val();
+
+                console.log(fname + " " + lname + " " + username + " " + email + " " + school + " " + password + " " + rePassword);
+
+            
+                $.ajax({
+                    type: "POST",
+                    url: "/signin_student",
+                    dataType: "text",
+                    data: {
+                        fname: fname,
+                        lname: lname,
+                        username: username,
+                        email: email,
+                        school: school,
+                        password: password,
+                        rePassword: rePassword
+                    }
+                }).done( function ( result  ) {
+                        console.log( result );
+                        if(result == 'YouDidIt'){
+                            window.location.href='game';
+                        }
+                        else if(result == 'wrongPassword'){
+                            $('#rePassword').append("Please enter a valid password");
+                        }
+                    });
+            });
+        });
 
 block content 
     #content
@@ -7,39 +47,38 @@ block content
   
             h1 Sign-in
             br
-            form(action="/signin_student" method="post")
-                label(for='first_name') First Name
-                br
-                input(type='text' name ='first_name')
-                br
-                br
-                label(for='last_name') Last Name
-                br
-                input(type='text' name ='last_name')
-                br
-                br
-                label(for='username') Username
-                br
-                input(type='text' name ='username')
-                br
-                br
-                label(for='email') Email
-                br
-                input(type='text' name ='email')
-                br
-                br
-                label(for='school') School
-                br
-                input(type='text' name ='school')
-                br
-                br
-                label(for='password') Password
-                br
-                input(type='password' name ='password')
-                br
-                label(for='rePassword') Reenter password
-                br
-                input(type='password' name ='rePassword')
-                br
-                br
-                input#login(type='submit' value='Submit')
+            label(for='first_name') First Name
+            br
+            input#fName(type='text' name ='first_name')
+            br
+            br
+            label(for='last_name') Last Name
+            br
+            input#lName(type='text' name ='last_name')
+            br
+            br
+            label(for='username') Username
+            br
+            input#username(type='text' name ='username')
+            br
+            br
+            label(for='email') Email
+            br
+            input#email(type='text' name ='email')
+            br
+            br
+            label(for='school') School
+            br
+            input#school(type='text' name ='school')
+            br
+            br
+            label(for='password') Password
+            br
+            input#password(type='password' name ='password')
+            br
+            label(for='rePassword') Reenter password
+            br
+            input#rePassword(type='password' name ='rePassword')
+            br
+            br
+            input#login(type='submit' value='Submit')
