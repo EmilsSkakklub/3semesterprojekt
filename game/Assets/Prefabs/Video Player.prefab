@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2559019895264585240}
   - component: {fileID: 2559019895264585241}
+  - component: {fileID: 2559019894908448999}
   m_Layer: 0
   m_Name: Video Player
   m_TagString: Untagged
@@ -56,7 +57,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
-  m_Url: F:\Projects\3semesterprojekt\public\videos\worldmap.mp4
+  m_Url: 
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 01
   m_ControlledAudioTrackCount: 1
@@ -66,3 +67,15 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!114 &2559019894908448999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559019895264585246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf6b771fd24cc74f81118db4c89ba9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
