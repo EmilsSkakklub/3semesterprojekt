@@ -61,6 +61,10 @@ a {
   height: 900px;
   padding-top: 50px;
 }
+#content2 {
+  padding-top: 50px;
+  height: 100%;
+}
 
 /* ================== STUDENT LOGIN ================== */
 
@@ -162,7 +166,14 @@ a {
   color: black;
   font-weight: bold;
 }
-
+/* ================== GAME ================== */
+#unity-canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
 /* ================== ABOUT ================== */
 #description {
   font-family: "Roboto", sans-serif;
