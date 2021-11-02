@@ -337,8 +337,6 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
-"Assets/Scripts/Database(old)/DatabaseAccess.cs"
-"Assets/Scripts/Database(old)/DisplayHighscore.cs"
 "Assets/Scripts/login/loginManager.cs"
 "Assets/Scripts/MenuScripts/HighscoreMenu.cs"
 "Assets/Scripts/MenuScripts/InfoMenu.cs"
