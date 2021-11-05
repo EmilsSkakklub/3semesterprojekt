@@ -60,6 +60,10 @@ router.get('/signin_student', function(req, res, next) {
 	res.render('signin_student', { title: 'Sign-in - motedu.' });
 });
 
+router.get('/signin_teacher', function(req, res, next) {
+	res.render('signin_teacher', { title: 'Sign-in Teacher - motedu.' });
+});
+
 
 //============= POSTS =============
 router.post('/login', function (req, res) {
@@ -226,7 +230,7 @@ router.post('/signin_student', async (req, res) => {
 				else{
 					if(result != null){
 						console.log("Username already Exists");
-						res.send("InvalidUsername")
+						res.send("InvalidUsername");
 					}
 					else if(result == null){
 						if(studentData.password == studentData.rePassword){
@@ -236,7 +240,7 @@ router.post('/signin_student', async (req, res) => {
 						}
 						else{
 							console.log("Please enter in the same password.");
-							res.send("WrongPassword")
+							res.send("WrongPassword");
 						}
 					}
 				}
@@ -247,6 +251,41 @@ router.post('/signin_student', async (req, res) => {
 		}
 });
 
+router.post('/signin_teacher', async (req, res) => {
+	console.log(req.body);
+
+	var collection = client.db('UsersDB').collection('Teachers');
+	try{
+		let teacherData = req.body;
+		console.log(teacherData);
+
+		collection.findOne({"username": teacherData.username}, async (findError, result) => {
+			if(findError){
+				console.log(findError);
+			}
+			else{
+				if(result != null){
+					console.log("Username already Exists");
+					res.send("InvalidUsername");
+				}
+				else if(result == null){
+					if(teacherData.password == teacherData.rePassword){
+						await collection.insertOne({"password": teacherData.password, "email": teacherData.email, "first_name": teacherData.fname, "last_name": teacherData.lname, "school": teacherData.school, "exp": 0});
+						console.log("New Teacher added!");
+						res.send("YouDidIt");
+					}
+					else{
+						console.log("Please enter in the same password.");
+						res.send("WrongPassword");
+					}
+				}
+			}
+		})
+	}
+	catch(error){
+		console.log(error);
+	}
+});
 
 
 module.exports = router;
