@@ -225,6 +225,8 @@ router.post('/signin_student', async (req, res) => {
 				}
 				else{
 					if(result != null){
+						alert("Hello!");
+						
 						console.log("Username already Exists");
 						res.send("InvalidUsername")
 					}
