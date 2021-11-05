@@ -1,4 +1,23 @@
-extends layout
+extends layout 
 
-block content 
-    #content 
+block content
+    #content
+        include worldmap_bg
+        #div1
+            h1 login
+            br
+            form(method='post')
+                label(for='un') username:
+                br
+                input#username(type='text' name ='username')
+                br
+                br
+                label(for='pw') password:
+                br
+                input#password(type='password' name ='password')
+                br
+                br
+                input#login(type='submit' value='Log-In')
+                br
+                br
+            a.btn(href="signin_teacher") Sign-in

@@ -1,32 +1,25 @@
 extends layout
 block scripts 
-
-
-
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script.
         $(document).ready(function(){
-            var reEnterPasswordText = 0;
             $("#login").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
-                var username = $('#username').val();
                 var email = $('#email').val();
                 var school = $('#school').val();
                 var password = $('#password').val();
                 var rePassword = $('#rePassword').val();
 
-                console.log(fname + " " + lname + " " + username + " " + email + " " + school + " " + password + " " + rePassword);
+                console.log(fname + " " + lname + " " + email + " " + school + " " + password + " " + rePassword);
 
-            
-                $.ajax({
+                 $.ajax({
                     type: "POST",
-                    url: "/signin_student",
+                    url: "/signin_teacher",
                     dataType: "text",
                     data: {
                         fname: fname,
                         lname: lname,
-                        username: username,
                         email: email,
                         school: school,
                         password: password,
@@ -38,23 +31,18 @@ block scripts
                             window.location.href='game';
                         }
                         else if(result == 'WrongPassword'){
-                            
-                            if(reEnterPasswordText == 0){
-                                $('#errorMSG').append("Please enter a valid password");
-                                reEnterPasswordText++;
-                                
-                            }
+                            $('#out').append("Please enter a valid password");
                         }
                     });
             });
         });
 
-block content 
+    block content 
     #content
         include worldmap_bg
         #div2 
   
-            h1 Sign-in
+            h1 Sign-in Teacher
             br
             label(for='first_name') First Name
             br
@@ -64,11 +52,6 @@ block content
             label(for='last_name') Last Name
             br
             input#lName(type='text' name ='last_name')
-            br
-            br
-            label(for='username') Username
-            br
-            input#username(type='text' name ='username')
             br
             br
             label(for='email') Email
@@ -89,7 +72,5 @@ block content
             br
             input#rePassword(type='password' name ='rePassword')
             br
-            div#errorMSG
             br
             input#login(type='submit' value='Submit')
-            
