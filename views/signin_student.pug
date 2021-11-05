@@ -1,8 +1,12 @@
 extends layout
 block scripts 
+
+
+
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script.
         $(document).ready(function(){
+            var reEnterPasswordText = 0;
             $("#login").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
@@ -34,7 +38,12 @@ block scripts
                             window.location.href='game';
                         }
                         else if(result == 'WrongPassword'){
-                            $('#out').append("Please enter a valid password");
+                            
+                            if(reEnterPasswordText == 0){
+                                $('#errorMSG').append("Please enter a valid password");
+                                reEnterPasswordText++;
+                                
+                            }
                         }
                     });
             });
@@ -80,6 +89,7 @@ block content
             br
             input#rePassword(type='password' name ='rePassword')
             br
+            div#errorMSG
             br
             input#login(type='submit' value='Submit')
             
