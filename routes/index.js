@@ -44,20 +44,16 @@ router.get('/parents', function(req, res, next) {
   res.render('parents', { title: 'parents - motedu.' });
 });
 
-router.get('/student_login', function(req, res, next) {
-  res.render('login_student', { title: 'log-in - motedu.' });
-});
-
-router.get('/teacher_login', function(req, res, next) {
-  res.render('login_teacher', { title: 'log-in - motedu.' });
-});
-
 router.get('/game', function(req, res, next) {
   res.render('game', { title: 'game - motedu.' });
 });
 
+router.get('/signin', function(req, res, next) {
+	res.render('signin', { title: 'Sign-in - motedu.' });
+});
+
 router.get('/signin_student', function(req, res, next) {
-	res.render('signin_student', { title: 'Sign-in - motedu.' });
+	res.render('signin_student', { title: 'Sign-in Student - motedu.' });
 });
 
 router.get('/signin_teacher', function(req, res, next) {
