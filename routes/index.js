@@ -62,16 +62,28 @@ router.get('/signin_teacher', function(req, res, next) {
 
 
 //============= POSTS =============
-router.post('/login', function (req, res) {
+router.post('/login', async (req, res) => {
 	var playerData = req.body;
-	//Extracts the field values from the request
-	console.log("HTTP Post Request: /login?username=" + playerData.username + "&password=" + playerData.password);
 
+	console.log(new RegExp(playerData.username, "i"));
+	console.log(new RegExp(playerData.email, "i"));
+
+	//Extracts the field values from the 
+	if(playerData.username != undefined){
+		console.log("HTTP Post Request: /login?username=" + playerData.username + "&password=" + playerData.password);
+	}else{
+		console.log("HTTP Post Request: /login?email=" + playerData.email + "&password=" + playerData.password);
+	}
+	
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
 	
 	//Returns a single document, if one fits the conditions
-	collection.findOne({"username": playerData.username, "password": playerData.password }, function (findError, result) {
+	await collection.findOne(		
+				{"username": { $regex : new RegExp(playerData.username, "i")}},
+				{"email":  { $regex : new RegExp(playerData.email, "i")}}						
+		, async (findError, result) => {
+
 		//Check for Errors
 		if (!findError) {
 			console.log("MongoDB - Find: No Errors");
@@ -85,7 +97,8 @@ router.post('/login', function (req, res) {
 		if (!result) {
 			console.log("Student not found");
 			var collection = client.db('UsersDB').collection('Teachers');
-			collection.findOne({"username": playerData.username, "password": playerData.password }, function (findError, result) {
+			await collection.findOne(
+				{"email": new RegExp(playerData.email, "i")}, function (findError, result) {
 	
 				//Sends the player data back to Unity as a string
 				if (!result) {
@@ -93,41 +106,72 @@ router.post('/login', function (req, res) {
 					res.send("Player not found");
 				}
 				else {
-					console.log("Teacher logged in");
-					res.send("Player logged in");
+					if(result.password == playerData.password){
+						console.log("Teacher logged in");
+						res.send("Teacher logged in");
+					}else{
+						console.log("t_Password Incorrect");
+						res.send("t_Password Incorrect");
+					}
 				}
 			})}
 		else {
-			console.log("Student logged in");
-			res.send("Player logged in");
+
+			if(result.password == playerData.password){
+				console.log("Student logged in");
+				res.send("Student logged in");
+			}else{
+				console.log("Password Incorrect");		
+				console.log("Student not found");
+				var collection = client.db('UsersDB').collection('Teachers');
+				await collection.findOne(
+					{"email": new RegExp(playerData.email, "i")}, function (findError, result) {
+	
+					//Sends the player data back to Unity as a string
+					if (!result) {
+						console.log("Teacher not found");
+						res.send("Player not found");
+					}
+					else {
+						if(result.password == playerData.password){
+							console.log("Teacher logged in");
+							res.send("Teacher logged in");
+						}else{
+							console.log("t_Password Incorrect");
+							res.send("t_Password Incorrect");
+					}
+					}
+				})
+			}			
 		}
 	});
 });
 
-router.post('/getuserinfo', function (req, res) {
+router.post('/getuserinfo', async (req, res)=> {
 	var playerData = req.body;
+	console.log("GetUserInfo:" + playerData.username)
 	//Extracts the field values from the request
-	console.log("HTTP Post Request: /getuserinfo?username=" + playerData.username);
+	console.log("G Post Request: /getuserinfo?username=" + playerData.username);
 
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
 
 	//Returns a single document, if one fits the conditions
-	collection.findOne({"username": playerData.username}, function (findError, result) {
+	await collection.findOne({
+		"username": new RegExp(playerData.username, "i"),
+		"email": new RegExp(playerData.email, "i") }, 
+		async (findError, result) =>{
 		//Check for Errors
 		if (!findError) {
 			console.log("MongoDB - Find: No Errors");
-		}
-		else {
+		}else {
 			console.log("MongoDB - Find: Error");
 			console.log(findError);
 		}
-
-		//Sends the player data back to Unity as a string
 		if (!result) {
 			console.log("StudentInfo not found");
 			var collection = client.db('UsersDB').collection('Teachers');
-			collection.findOne({"username": playerData.username}, function (findError, result) {
+			await collection.findOne({"email": new RegExp(playerData.email, "i") }, function (findError, result) {
 	
 				//Sends the player data back to Unity as a string
 				if (!result) {
@@ -141,7 +185,7 @@ router.post('/getuserinfo', function (req, res) {
 			})}
 		else {
 			console.log("StudentInfo Sent");
-			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}"}`);
+			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}", "username":"${result.username}"}`);
 		}
 	});
 });
