@@ -61,10 +61,6 @@ a {
   height: 900px;
   padding-top: 50px;
 }
-#content2 {
-  padding-top: 50px;
-  height: 100%;
-}
 
 /* ================== STUDENT LOGIN ================== */
 
@@ -112,27 +108,7 @@ a {
 
   z-index: -1;
 }
-
-/* ================== HOME ================== */
-#homePlayButton {
-  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
-  background-color: #77b55a;
-  border-radius: 3px;
-  display: inline-block;
-  cursor: pointer;
-  color: #ffffff;
-  font-family: "Roboto", sans-serif;
-  font-size: 28px;
-  font-weight: bold;
-  padding: 8px 32px;
-  text-decoration: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
+/* ================== SIGN IN ================= */
 #signinStudent {
   background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
   background-color: #77b55a;
@@ -169,6 +145,25 @@ a {
   transform: translate(-50%, -50%);
   z-index: 2;
 }
+/* ================== HOME ================== */
+#homePlayButton {
+  background: linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+  background-color: #77b55a;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  padding: 10px 40px;
+  text-decoration: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
 
 #homelinedeco {
   border-bottom: 1px solid #696969;
@@ -182,22 +177,40 @@ a {
 
 #logotext {
   font-family: "Roboto", sans-serif;
-  font-size: 60px;
+  font-size: 100px;
   position: absolute;
   left: 50%;
   top: 32%;
   transform: translate(-50%, -32%);
   z-index: 3;
-  color: black;
+  color: rgb(54, 54, 54);
   font-weight: bold;
 }
 /* ================== GAME ================== */
+#unity-container.unity-desktop {
+  left: 0%;
+  top: 0%;
+  transform: translate(0%, 0%);
+  padding-top: 50px;
+  position: relative;
+}
 #unity-canvas {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  height: inherit !important;
+  width: inherit !important;
+  margin: auto;
   display: block;
+  position: absolute;
+}
+#unity-fullscreen-button {
+  position: absolute;
+  right: 0;
+}
+#canvas-container {
+  width: 1300px;
+  height: 731px;
+  position: relative;
+  display: block;
+  margin: auto;
 }
 /* ================== ABOUT ================== */
 #description {

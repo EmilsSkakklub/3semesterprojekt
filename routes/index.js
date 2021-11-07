@@ -111,7 +111,7 @@ router.post('/login', async (req, res) => {
 						res.send("Teacher logged in");
 					}else{
 						console.log("t_Password Incorrect");
-						res.send("t_Password Incorrect");
+						res.send("Player not found");
 					}
 				}
 			})}
@@ -138,7 +138,7 @@ router.post('/login', async (req, res) => {
 							res.send("Teacher logged in");
 						}else{
 							console.log("t_Password Incorrect");
-							res.send("t_Password Incorrect");
+							res.send("Player not found");
 					}
 					}
 				})
