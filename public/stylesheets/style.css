@@ -61,6 +61,13 @@ a {
   height: 900px;
   padding-top: 50px;
 }
+#contentGame {
+  height: 750px;
+  background-color: rgb(248, 255, 244);
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 150px;
+}
 
 /* ================== STUDENT LOGIN ================== */
 
@@ -191,12 +198,12 @@ a {
   left: 0%;
   top: 0%;
   transform: translate(0%, 0%);
-  padding-top: 50px;
+
   position: relative;
 }
 #unity-canvas {
-  height: inherit !important;
-  width: inherit !important;
+  height: 100% !important;
+  width: 100% !important;
   margin: auto;
   display: block;
   position: absolute;
@@ -206,11 +213,11 @@ a {
   right: 0;
 }
 #canvas-container {
-  width: 1300px;
-  height: 731px;
+  width: 80%;
   position: relative;
-  display: block;
+  display: grid;
   margin: auto;
+  padding-top: 45%;
 }
 /* ================== ABOUT ================== */
 #description {
