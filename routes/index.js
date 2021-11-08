@@ -329,5 +329,25 @@ router.post('/signin_teacher', async (req, res) => {
 	}
 });
 
+router.post('/createIsland', async (req, res) => {
+	
+	var collection = client.db('UsersDB').collection('Islands');
+	try{
+		let IslandData = req.body;
+		
+		await collection.insertOne({
+			"name": IslandData.name, 
+			"subject": IslandData.subject, 
+			"islandTemplate": IslandData.islandTemplate
+		});
+		console.log("IslandAdded: "+ IslandData)
+		res.send("IslandAdded")
+	}
+	catch(error){
+		console.log(error);
+		res.send("Error")
+	}
+});
+
 
 module.exports = router;
