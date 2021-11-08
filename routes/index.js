@@ -180,12 +180,12 @@ router.post('/getuserinfo', async (req, res)=> {
 				}
 				else {
 					console.log("TeacherInfo Sent");
-					res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}"}`);
+					res.send(`{"id":"${result._id}","email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}"}`);
 				}
 			})}
 		else {
 			console.log("StudentInfo Sent");
-			res.send(`{"email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}", "username":"${result.username}"}`);
+			res.send(`{"id":"${result._id}","email":"${result.email}","fname":"${result.first_name}","lname":"${result.last_name}", "school":"${result.school}", "exp":"${result.exp}", "username":"${result.username}"}`);
 		}
 	});
 });
@@ -338,7 +338,8 @@ router.post('/createIsland', async (req, res) => {
 		await collection.insertOne({
 			"name": IslandData.name, 
 			"subject": IslandData.subject, 
-			"islandTemplate": IslandData.islandTemplate
+			"islandTemplate": IslandData.islandTemplate,
+			"creator": IslandData.creator
 		});
 		console.log("IslandAdded: "+ IslandData)
 		res.send("IslandAdded")
