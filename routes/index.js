@@ -312,7 +312,13 @@ router.post('/signin_teacher', async (req, res) => {
 				}
 				else if(result == null){
 					if(teacherData.password == teacherData.rePassword){
-						await collection.insertOne({"password": teacherData.password, "email": teacherData.email, "first_name": teacherData.fname, "last_name": teacherData.lname, "school": teacherData.school, "exp": 0});
+						await collection.insertOne({
+							"password": teacherData.password, 
+							"email": teacherData.email, 
+							"first_name": teacherData.fname, 
+							"last_name": teacherData.lname, 
+							"school": teacherData.school, 
+							"exp": 0});
 						console.log("New Teacher added!");
 						res.send("YouDidIt");
 					}
@@ -334,15 +340,18 @@ router.post('/createIsland', async (req, res) => {
 	var collection = client.db('UsersDB').collection('Islands');
 	try{
 		let IslandData = req.body;
-		
-		await collection.insertOne({
+
+		var ObjectToInsert = {
 			"name": IslandData.name, 
 			"subject": IslandData.subject, 
 			"islandTemplate": IslandData.islandTemplate,
 			"creator": IslandData.creator
-		});
-		console.log("IslandAdded: "+ IslandData)
-		res.send("IslandAdded")
+		}
+
+		await collection.insertOne(ObjectToInsert);
+		
+		console.log(IslandData)
+		res.send(ObjectToInsert._id);
 	}
 	catch(error){
 		console.log(error);
