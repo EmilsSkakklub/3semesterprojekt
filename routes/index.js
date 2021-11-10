@@ -338,7 +338,8 @@ router.post('/createIsland', async (req, res) => {
 			"name": IslandData.name, 
 			"subject": IslandData.subject, 
 			"islandTemplate": IslandData.islandTemplate,
-			"creator": IslandData.creator
+			"creator": IslandData.creator,
+			"homework":[]
 		}
 
 		await collection.insertOne(ObjectToInsert);
@@ -351,6 +352,38 @@ router.post('/createIsland', async (req, res) => {
 		res.send("Error")
 	}
 });
+router.post('/insertHomework', async (req, res) => {
+	
+	var collection = client.db('UsersDB').collection('Islands');
 
+	let HomeworkData = req.body;
+	console.log(HomeworkData);
+
+		var ObjectToInsert = {
+			"title": HomeworkData.title,
+			"content": HomeworkData.content,
+			"duedate": HomeworkData.duedate,
+			"exp": HomeworkData.exp,
+			"tilemap": HomeworkData.tilemap,
+			"posX": HomeworkData.posX,
+			"posY": HomeworkData.posY,
+			"posZ": HomeworkData.posZ			
+		}
+
+		var ObjectId = require('mongodb').ObjectId; 
+		var id = HomeworkData.islandId;       
+		var o_id = new ObjectId(id);
+		
+	try{
+		await collection.updateOne(
+			{"_id": o_id},
+			{$push: {homework: ObjectToInsert}}
+		)
+	}
+	catch(error){
+		console.log(error);
+		res.send("Error")
+	}
+});
 
 module.exports = router;
