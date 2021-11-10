@@ -268,21 +268,22 @@ router.post('/signin_student', async (req, res) => {
 					//The username already exists
 					if(result != null){
 						console.log("Username already Exists");
-						res.send("InvalidUsername");
+						res.send("invalidUsername");
+						
 					}
 					//the username does not exist -> possible new user
 					else if(result == null){
-					
-						//chack password and rePassword are the same
-						if(studentData.password == studentData.rePassword){
-							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.fname, "last_name": studentData.lname, "school": studentData.school, "class": studentData.classNum, "exp": 0});
-							console.log("New student added!");
-							res.send("YouDidIt");
-						}
-						else{
-							console.log("Please enter in the same password.");
-							res.send("WrongPassword");
-						}
+						await collection.insertOne({
+							"username": studentData.username, 
+							"password": studentData.password, 
+							"email": studentData.email, 
+							"first_name": studentData.fname, 
+							"last_name": studentData.lname, 
+							"school": studentData.school, 
+							"class": studentData.classNum, 
+							"exp": 0});
+						console.log("New student added!");
+						res.send("success");
 					}
 				}
 			});
@@ -305,25 +306,20 @@ router.post('/signin_teacher', async (req, res) => {
 			else{
 				if(result != null){
 					console.log("User already Exists");
-					res.send("Email already in use");
+					res.send("invalidEmail");
 				}
 				else if(result == null){
-					if(teacherData.password == teacherData.rePassword){
-						await collection.insertOne({
-							"password": teacherData.password, 
-							"email": teacherData.email, 
-							"first_name": teacherData.fname, 
-							"last_name": teacherData.lname, 
-							"school": teacherData.school, 
-							"exp": 0});
-						console.log("New Teacher added!");
-						res.send("YouDidIt");
-					}
-					else{
-						console.log("Please enter in the same password.");
-						res.send("WrongPassword");
-					}
+					await collection.insertOne({
+						"password": teacherData.password, 
+						"email": teacherData.email, 
+						"first_name": teacherData.fname, 
+						"last_name": teacherData.lname, 
+						"school": teacherData.school, 
+						"class": teacherData.classNum});
+					console.log("New Teacher added!");
+					res.send("success");
 				}
+				
 			}
 		})
 	}

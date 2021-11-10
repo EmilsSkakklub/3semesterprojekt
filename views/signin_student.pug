@@ -6,9 +6,6 @@ block scripts
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script.
         $(document).ready(function(){
-            var reEnterPasswordText = 0;
-
-
             $("#login").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
@@ -42,72 +39,113 @@ block scripts
                 //check forst name
                 if(fname !== ''){
                     if(hasWhitespace(fname)){
-                        console.log("First name must not contain white space!");
+                        $('#fNameERROR').empty().append("First name cannot contain white space");
                         fnameBool = false;
                     }
                     else if(!hasWhitespace(fname)){
-                        console.log("Legitness");
+                        $('#fNameERROR').empty();
                         fNameBool = true;
                     }
                 }
                 else if(fname === ''){
-                    console.log("Frist name cannot be empty!");
+                    $('#fNameERROR').empty().append("First name cannot be empty");
                     fNameBool = false;
                 }
 
                 //check last name
                  if(lname !== ''){
                     if(hasWhitespace(lname)){
-                        console.log("Last name must not contain white space!");
+                        $('#lNameERROR').empty().append("Last name cannot contain white space");
                         lNameBool = false;
                     }
                     else if(!hasWhitespace(lname)){
-                        console.log("Legitness");
+                         $('#lNameERROR').empty();
                         lNameBool = true;
                     }
                 }
                 else if(lname === ''){
-                    console.log("Last name cannot be empty!");
+                    $('#lNameERROR').empty().append("Last name cannot be empty");
                     lNameBool = false;
                 }
 
                 //check username
                 if(username !== ''){
                     if(hasWhitespace(username)){
-                        console.log("username must not contain white space!");
+                        $('#usernameERROR').empty().append("First name cannot contain white space");
                         usernameBool = false;
                     }
                     else if(!hasWhitespace(username)){
-                        console.log("Legitness");
+                        $('#usernameERROR').empty();
                         usernameBool = true;
                     }
                 }
                 else if(username === ''){
-                    console.log("username cannot be empty!");
+                    $('#usernameERROR').empty().append("Username cannot be empty");
                     usernameBool = false;
                 }
                 
 
                 //check email
                  if(email !== ''){
-                    if(isValidEmail(email)){
-                        console.log("email is Valid!");
-                        emailBool = true ;
+                    if(!isValidEmail(email)){
+                        $('#emailERROR').empty().append("Email is invalid");
+                        emailBool = false ;
                     }
-                    else if(!isValidEmail(email)){
-                        console.log("Invalid email!");
-                        emailBool = false;
+                    else if(isValidEmail(email)){
+                        $('#emailERROR').empty();
+                        emailBool = true;
                     }
                 }
                 else if(email === ''){
-                    console.log("email cannot be empty!");
+                    $('#emailERROR').empty().append("Email cannot be empty");
                     emailBool = false;
                 }
-                
 
+                //check school
+                if(school !== ''){
+                    if(hasWhitespace(school)){
+                        $('#schoolERROR').empty().append("School name cannot contain white space");
+                        schoolBool = false;
+                    }
+                    else if(!hasWhitespace(school)){
+                        $('#schoolERROR').empty();
+                        schoolBool = true;
+                    }
+                }
+                else if(school === ''){
+                    $('#schoolERROR').empty().append("School name cannot be empty");
+                    schoolBool = false;
+                }
 
+                //check classNum
+                if(classNum != null){
+                    classNumBool = true;
+                }
+                else{
+                    classNumBool = false;
+                }
 
-
+                 //check school
+                if(password !== ''){
+                    if(hasWhitespace(password)){
+                        $('#passwordERROR').empty().append("Password cannot contain white space");
+                        passwordBool = false;
+                    }
+                    else if(!hasWhitespace(password)){
+                        if(password == rePassword){
+                            $('#passwordERROR').empty();
+                            passwordBool = true;
+                        }
+                        else if(password != rePassword){
+                            $('#passwordERROR').empty().append("Please reenter the same password");
+                            passwordBool = false;
+                        }
+                    }
+                }
+                else if(school === ''){
+                    $('#passwordERROR').empty().append("Password cannot be empty");
+                    passwordBool = false;
+                }
                 console.log(fNameBool + " " + lNameBool + " " + usernameBool + " " + emailBool + " " + schoolBool + " " + classNumBool + " " + passwordBool);
 
                 if(fNameBool && lNameBool && usernameBool && emailBool && schoolBool && classNumBool && passwordBool){
@@ -127,16 +165,11 @@ block scripts
                         }
                     }).done( function ( result  ) {
                         console.log( result );
-                        if(result == 'YouDidIt'){
+                        if(result == 'success'){
                             window.location.href='game';
                         }
-                        else if(result == 'WrongPassword'){
-                            
-                            if(reEnterPasswordText == 0){
-                                $('#errorMSG').append("Please enter a valid password");
-                                reEnterPasswordText++;
-                                
-                            }
+                        if(result == 'invalidUsername'){
+                            $('#usernameERROR').empty().append("Invalid Username. Username already in use.");
                         }
                     });
                 }
@@ -155,26 +188,31 @@ block content
             br
             input#fName(type='text' name ='first_name')
             br
+            div.error#fNameERROR
             br
             label(for='last_name') Last Name
             br
             input#lName(type='text' name ='last_name')
             br
+            div.error#lNameERROR
             br
             label(for='username') Username
             br
             input#username(type='text' name ='username')
             br
+            div.error#usernameERROR
             br
             label(for='email') Email
             br
             input#email(type='text' name ='email')
             br
+            div.error#emailERROR
             br
             label(for='school') School
             br
             input#school(type='text' name ='school')
             br
+            div.error#schoolERROR
             br
             label(for='classNum') Class
             br
@@ -191,7 +229,7 @@ block content
             br
             input#rePassword(type='password' name ='rePassword')
             br
-            div#errorMSG
+            div.error#passwordERROR
             br
             input#login(type='submit' value='Submit')
             

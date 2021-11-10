@@ -8,9 +8,125 @@ block scripts
                 var lname = $('#lName').val();
                 var email = $('#email').val();
                 var school = $('#school').val();
+                var classNum = $('#classNum').val();
                 var password = $('#password').val();
                 var rePassword = $('#rePassword').val();
 
+                var fNameBool = false;
+                var lNameBool = false;
+                var emailBool = false;
+                var schoolBool = false;
+                var classNumBool = false;
+                var passwordBool = false;
+
+                 //check if string contains white space
+                function hasWhitespace(s){
+                    return s.indexOf(' ') >= 0;
+                }
+
+                function isValidEmail(s){
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+                }
+
+                 //check forst name
+                if(fname !== ''){
+                    if(hasWhitespace(fname)){
+                        $('#fNameERROR').empty().append("First name cannot contain white space");
+                        fnameBool = false;
+                    }
+                    else if(!hasWhitespace(fname)){
+                        $('#fNameERROR').empty();
+                        fNameBool = true;
+                    }
+                }
+                else if(fname === ''){
+                    $('#fNameERROR').empty().append("First name cannot be empty");
+                    fNameBool = false;
+                }
+
+                //check last name
+                 if(lname !== ''){
+                    if(hasWhitespace(lname)){
+                        $('#lNameERROR').empty().append("Last name cannot contain white space");
+                        lNameBool = false;
+                    }
+                    else if(!hasWhitespace(lname)){
+                         $('#lNameERROR').empty();
+                        lNameBool = true;
+                    }
+                }
+                else if(lname === ''){
+                    $('#lNameERROR').empty().append("Last name cannot be empty");
+                    lNameBool = false;
+                }
+                
+
+                //check email
+                 if(email !== ''){
+                    if(!isValidEmail(email)){
+                        $('#emailERROR').empty().append("Email is invalid");
+                        emailBool = false ;
+                    }
+                    else if(isValidEmail(email)){
+                        $('#emailERROR').empty();
+                        emailBool = true;
+                    }
+                }
+                else if(email === ''){
+                    $('#emailERROR').empty().append("Email cannot be empty");
+                    emailBool = false;
+                }
+
+                //check school
+                if(school !== ''){
+                    if(hasWhitespace(school)){
+                        $('#schoolERROR').empty().append("School name cannot contain white space");
+                        schoolBool = false;
+                    }
+                    else if(!hasWhitespace(school)){
+                        $('#schoolERROR').empty();
+                        schoolBool = true;
+                    }
+                }
+                else if(school === ''){
+                    $('#schoolERROR').empty().append("School name cannot be empty");
+                    schoolBool = false;
+                }
+
+                //check classNum
+                if(classNum != null){
+                    classNumBool = true;
+                }
+                else{
+                    classNumBool = false;
+                }
+
+                 //check school
+                if(password !== ''){
+                    if(hasWhitespace(password)){
+                        $('#passwordERROR').empty().append("Password cannot contain white space");
+                        passwordBool = false;
+                    }
+                    else if(!hasWhitespace(password)){
+                        if(password == rePassword){
+                            $('#passwordERROR').empty();
+                            passwordBool = true;
+                        }
+                        else if(password != rePassword){
+                            $('#passwordERROR').empty().append("Please reenter the same password");
+                            passwordBool = false;
+                        }
+                    }
+                }
+                else if(school === ''){
+                    $('#passwordERROR').empty().append("Password cannot be empty");
+                    passwordBool = false;
+                }
+
+
+                console.log(fNameBool + " " + lNameBool + " " + emailBool + " " + schoolBool + " " + classNumBool + " " + passwordBool);
+
+                if(fNameBool && lNameBool && emailBool && schoolBool && classNumBool && passwordBool){
                  $.ajax({
                     type: "POST",
                     url: "/signin_teacher",
@@ -20,18 +136,20 @@ block scripts
                         lname: lname,
                         email: email,
                         school: school,
+                        classNum: classNum,
                         password: password,
                         rePassword: rePassword
                     }
                 }).done( function ( result  ) {
-                        console.log( result );
-                        if(result == 'YouDidIt'){
-                            window.location.href='game';
-                        }
-                        else if(result == 'WrongPassword'){
-                            $('#out').append("Please enter a valid password");
-                        }
-                    });
+                    console.log( result );
+                    if(result == 'success'){
+                        window.location.href='game';
+                    }
+                    else if(result == 'invalidEmail'){
+                        $('#emailERROR').empty().append("Invalid email. Email already exists");
+                    }
+                });
+                }
             });
         });
 
@@ -46,21 +164,29 @@ block scripts
             br
             input#fName(type='text' name ='first_name')
             br
+            div.error#fNameERROR
             br
             label(for='last_name') Last Name
             br
             input#lName(type='text' name ='last_name')
             br
+            div.error#lNameERROR
             br
             label(for='email') Email
             br
             input#email(type='text' name ='email')
             br
+            div.error#emailERROR
             br
             label(for='school') School
             br
             input#school(type='text' name ='school')
             br
+            div.error#schoolERROR
+            br
+            select#classNum(name='classNum')
+                each val in ['0', '1' , '2' , '4', '5', '6', '7', '8', '9', '10']
+                    option=val 
             br
             label(for='password') Password
             br
@@ -70,5 +196,6 @@ block scripts
             br
             input#rePassword(type='password' name ='rePassword')
             br
+            div.error#passwordERROR
             br
             input#login(type='submit' value='Submit')
