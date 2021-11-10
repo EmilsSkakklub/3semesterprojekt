@@ -7,32 +7,125 @@ block scripts
     script.
         $(document).ready(function(){
             var reEnterPasswordText = 0;
+
+
             $("#login").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
                 var username = $('#username').val();
                 var email = $('#email').val();
                 var school = $('#school').val();
+                var classNum = $('#classNum').val();
                 var password = $('#password').val();
                 var rePassword = $('#rePassword').val();
+                
+                var fNameBool = false;
+                var lNameBool = false;
+                var usernameBool = false;
+                var emailBool = false;
+                var schoolBool = false;
+                var classNumBool = false;
+                var passwordBool = false;
 
-                console.log(fname + " " + lname + " " + username + " " + email + " " + school + " " + password + " " + rePassword);
+                
 
-            
-                $.ajax({
-                    type: "POST",
-                    url: "/signin_student",
-                    dataType: "text",
-                    data: {
-                        fname: fname,
-                        lname: lname,
-                        username: username,
-                        email: email,
-                        school: school,
-                        password: password,
-                        rePassword: rePassword
+                //check if string contains white space
+                function hasWhitespace(s){
+                    return s.indexOf(' ') >= 0;
+                }
+
+                function isValidEmail(s){
+                    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+                }
+
+
+                //check forst name
+                if(fname !== ''){
+                    if(hasWhitespace(fname)){
+                        console.log("First name must not contain white space!");
+                        fnameBool = false;
                     }
-                }).done( function ( result  ) {
+                    else if(!hasWhitespace(fname)){
+                        console.log("Legitness");
+                        fNameBool = true;
+                    }
+                }
+                else if(fname === ''){
+                    console.log("Frist name cannot be empty!");
+                    fNameBool = false;
+                }
+
+                //check last name
+                 if(lname !== ''){
+                    if(hasWhitespace(lname)){
+                        console.log("Last name must not contain white space!");
+                        lNameBool = false;
+                    }
+                    else if(!hasWhitespace(lname)){
+                        console.log("Legitness");
+                        lNameBool = true;
+                    }
+                }
+                else if(lname === ''){
+                    console.log("Last name cannot be empty!");
+                    lNameBool = false;
+                }
+
+                //check username
+                if(username !== ''){
+                    if(hasWhitespace(username)){
+                        console.log("username must not contain white space!");
+                        usernameBool = false;
+                    }
+                    else if(!hasWhitespace(username)){
+                        console.log("Legitness");
+                        usernameBool = true;
+                    }
+                }
+                else if(username === ''){
+                    console.log("username cannot be empty!");
+                    usernameBool = false;
+                }
+                
+
+                //check email
+                 if(email !== ''){
+                    if(isValidEmail(email)){
+                        console.log("email is Valid!");
+                        emailBool = true ;
+                    }
+                    else if(!isValidEmail(email)){
+                        console.log("Invalid email!");
+                        emailBool = false;
+                    }
+                }
+                else if(email === ''){
+                    console.log("email cannot be empty!");
+                    emailBool = false;
+                }
+                
+
+
+
+
+                console.log(fNameBool + " " + lNameBool + " " + usernameBool + " " + emailBool + " " + schoolBool + " " + classNumBool + " " + passwordBool);
+
+                if(fNameBool && lNameBool && usernameBool && emailBool && schoolBool && classNumBool && passwordBool){
+                    $.ajax({
+                    type: "POST",
+                       url: "/signin_student",
+                        dataType: "text",
+                        data: {
+                            fname: fname,
+                            lname: lname,
+                            username: username,
+                            email: email,
+                            school: school,
+                            classNum: classNum,
+                            password: password,
+                            rePassword: rePassword
+                        }
+                    }).done( function ( result  ) {
                         console.log( result );
                         if(result == 'YouDidIt'){
                             window.location.href='game';
@@ -46,7 +139,9 @@ block scripts
                             }
                         }
                     });
+                }
             });
+            
         });
 
 block content 
@@ -79,6 +174,13 @@ block content
             label(for='school') School
             br
             input#school(type='text' name ='school')
+            br
+            br
+            label(for='classNum') Class
+            br
+            select#classNum(name='classNum')
+                each val in ['0', '1' , '2' , '4', '5', '6', '7', '8', '9', '10']
+                    option=val 
             br
             br
             label(for='password') Password

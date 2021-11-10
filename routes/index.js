@@ -255,9 +255,6 @@ router.post('/gethighscores', async (req, res) => {
 
 
 router.post('/signin_student', async (req, res) => {
-
-	//console.log(req.body);
-
 	var collection = client.db('UsersDB').collection('Students');
 		try{
 			let studentData = req.body;
@@ -268,15 +265,17 @@ router.post('/signin_student', async (req, res) => {
 					console.log(findError);
 				}
 				else{
+					//The username already exists
 					if(result != null){
-						alert("Hello!");
-						
 						console.log("Username already Exists");
 						res.send("InvalidUsername");
 					}
+					//the username does not exist -> possible new user
 					else if(result == null){
+					
+						//chack password and rePassword are the same
 						if(studentData.password == studentData.rePassword){
-							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.fname, "last_name": studentData.lname, "school": studentData.school, "exp": 0});
+							await collection.insertOne({"username": studentData.username, "password": studentData.password, "email": studentData.email, "first_name": studentData.fname, "last_name": studentData.lname, "school": studentData.school, "class": studentData.classNum, "exp": 0});
 							console.log("New student added!");
 							res.send("YouDidIt");
 						}
@@ -294,21 +293,19 @@ router.post('/signin_student', async (req, res) => {
 });
 
 router.post('/signin_teacher', async (req, res) => {
-	console.log(req.body);
-
 	var collection = client.db('UsersDB').collection('Teachers');
 	try{
 		let teacherData = req.body;
 		console.log(teacherData);
 
-		collection.findOne({"username": teacherData.username}, async (findError, result) => {
+		collection.findOne({"email": teacherData.email}, async (findError, result) => {
 			if(findError){
 				console.log(findError);
 			}
 			else{
 				if(result != null){
-					console.log("Username already Exists");
-					res.send("InvalidUsername");
+					console.log("User already Exists");
+					res.send("Email already in use");
 				}
 				else if(result == null){
 					if(teacherData.password == teacherData.rePassword){

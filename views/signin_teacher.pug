@@ -11,8 +11,6 @@ block scripts
                 var password = $('#password').val();
                 var rePassword = $('#rePassword').val();
 
-                console.log(fname + " " + lname + " " + email + " " + school + " " + password + " " + rePassword);
-
                  $.ajax({
                     type: "POST",
                     url: "/signin_teacher",
