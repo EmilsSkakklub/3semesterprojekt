@@ -215,7 +215,7 @@ router.post('/getexp', function (req, res) {
 			}
 		else {
 			console.log("StudentInfo Sent");
-			res.send(`${result.exp}`);
+			res.send(`${result.exp.Mathematics},${result.exp.Danish},${result.exp.German},${result.exp.French},${result.exp.Geography},${result.exp.English},${result.exp.Physics}`);
 		}
 	});
 });
@@ -225,29 +225,28 @@ router.post('/gethighscores', async (req, res) => {
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
 
-	var collCount;
-	await collection.count().then((count) => {
-		collCount = count;
-	});
+	// var collCount;
+	// await collection.count().then((count) => {
+	// 	collCount = count;
+	// });
 
-	collection.find({ "exp": { $gte: 0 } }).toArray().then((result) => {
+	collection.find({}).toArray().then((result) => {
 		if(!result){
 			console.log("No result")
 			res.send("Info not found")
 		}else{
 			
-			var HighscoreJson = ""
+			var HighscoreString = ""
 
-			HighscoreJson += "{"
-			HighscoreJson += `"Count":"${collCount}",`
+			//HighscoreJson += `"Count":"${collCount}":`
 			for(var i = 0; i<result.length;i++){
-				HighscoreJson += `"${result[i].username}":"${result[i].exp}",`
+				HighscoreString += `${result[i].username}:${result[i].exp.Mathematics}+${result[i].exp.Danish}+${result[i].exp.German}+${result[i].exp.French}+${result[i].exp.Geography}+${result[i].exp.English}+${result[i].exp.Physics},`
 			}
 			//HighscoreJson = HighscoreJson.substring(0, HighscoreJson.length - 1);
-			HighscoreJson += "}"
+			var StringToSend = HighscoreString.substring(0, HighscoreString.length - 1);
 
-			console.log(HighscoreJson);
-			res.send(HighscoreJson);
+			console.log(StringToSend);
+			res.send(StringToSend);
 		}		
 	});
 });
@@ -259,6 +258,16 @@ router.post('/signin_student', async (req, res) => {
 		try{
 			let studentData = req.body;
 			console.log(studentData);
+
+			var SubjectExp = {
+				"Mathematics":0,
+				"Danish":0,
+				"German":0,
+				"French":0,
+				"Geography":0,
+				"English":0,
+				"Physics":0,
+				}
 
 			collection.findOne({"username": studentData.username}, async (findError, result) => {
 				if(findError){
@@ -281,7 +290,8 @@ router.post('/signin_student', async (req, res) => {
 							"last_name": studentData.lname, 
 							"school": studentData.school, 
 							"class": studentData.classNum, 
-							"exp": 0});
+							"exp": SubjectExp
+						});
 						console.log("New student added!");
 						res.send("success");
 					}
@@ -364,7 +374,6 @@ router.post('/insertHomework', async (req, res) => {
 			"content": HomeworkData.content,
 			"duedate": HomeworkData.duedate,
 			"exp": HomeworkData.exp,
-			"tilemap": HomeworkData.tilemap,
 			"posX": HomeworkData.posX,
 			"posY": HomeworkData.posY,
 			"posZ": HomeworkData.posZ			
