@@ -6,6 +6,103 @@ block scripts
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
     script.
         $(document).ready(function(){
+
+
+            
+
+            $("#fName").click(function(){
+                console.log("Clicked");
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "block";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+            });
+
+            $("#lName").click(function(){
+                console.log("Clicked");
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+            });
+
+            $("#username").click(function(){
+                console.log("Clicked");
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+            });
+
+            $("#email").click(function(){
+                console.log("Clicked");
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                 var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+            });
+
+            $("#school").click(function(){
+                console.log("Clicked");
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                 var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+            });
+
+            
+
+
             $("#login").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
@@ -25,6 +122,10 @@ block scripts
                 var passwordBool = false;
 
                 
+
+                
+                
+                    
 
                 //check if string contains white space
                 function hasWhitespace(s){
@@ -180,6 +281,27 @@ block scripts
 block content 
     #content
         include worldmap_bg
+
+        #divHelp
+            #divFN
+                p First Name must be your real name.
+            
+            #divLN
+                p Last Name must be your real name.
+        
+            #divUN
+                p User Name must be your real name.
+
+            #divEMAIL
+                p Email must be your real Email.
+
+            #divSchool
+                p Enter your school's name.
+            
+
+        #divH
+            p A rescue team has been dispatched.
+
         #div2 
   
             h1 Sign-in
@@ -232,4 +354,20 @@ block content
             div.error#passwordERROR
             br
             input#login(type='submit' value='Submit')
+            br
+            br
+           
             
+            
+    
+
+    
+            
+            
+               
+            
+
+         
+            
+
+              

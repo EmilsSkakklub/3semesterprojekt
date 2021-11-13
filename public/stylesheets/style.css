@@ -368,6 +368,18 @@ a {
   z-index: 2;
 }
 
+#divH{
+  display: none;
+  padding: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 450%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
 #classNum {
   width: 100%;
   padding: 2px;
@@ -375,4 +387,66 @@ a {
 
 .error {
   color: red;
+}
+
+
+/* ================== SIGN_IN_HELp ================== */
+#divFN{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, -520%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
+#divLN{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, -400%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
+#divUN{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50%, -230%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
+#divEMAIL{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(60%, -90%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
+#divSchool{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(70%, 60%);
+  background-color: #62ba5d;
+
+  z-index: 2;
 }
