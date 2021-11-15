@@ -458,16 +458,14 @@ router.post('/getIslands', async (req, res) => {
 			for(var i = 0; i<result.length;i++){
 				islandsString += `${result[i]._id}+${result[i].name}+${result[i].subject}+${result[i].islandTemplate}+${result[i].creator}:`;
 				for(var j = 0; j < result[i].homework.length; j++){
-					var temp = result[i].homework[j];
-					islandsString += temp.title + '+' + temp.content + '+' + temp.duedate + '+' + temp.exp + '+' + temp.posX + '+' + temp.posY + '+' + temp.posZ + "!";
+					var tempHomework = result[i].homework[j];
+					islandsString += tempHomework.title + '+' + tempHomework.content + '+' + tempHomework.duedate + '+' + tempHomework.exp + '+' + tempHomework.posX + '+' + tempHomework.posY + '+' + tempHomework.posZ + "!";
 					}
 				islandsString = islandsString.substring(0, islandsString.length - 1);
 				islandsString += ',';
 			}
-			var StringToSend = islandsString.substring(0, islandsString.length - 1);
-
-			console.log(StringToSend);
-			res.send(StringToSend);
+			islandsString = islandsString.substring(0, islandsString.length - 1);
+			res.send(islandsString);
 		}		
 	});
 });
