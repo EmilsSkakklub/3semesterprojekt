@@ -92,40 +92,28 @@ router.post('/login', async (req, res) => {
 					
 					//E-mail found in the 'Teachers' collection - looking to see if password matches
 					}else{
-						await collection.findOne({"password": playerData.password},async (findError, result)=>{
-							if(findError){
-								console.log("findError")
-							}
-
-							//Password didnt match
-							if(!result){
-								console.log("Password Incorrect")
-							
-							//Password matches, Teacher logged in
-							}else{
-								res.send("Teacher logged in")
-							}
-						})
+						console.log(result);
+						if(result.password === playerData.password){
+							res.send("Teacher logged in")
+						}else{
+							console.log("Wrong Password")
+							res.send("User not found")
+						}
 					}
 				})
 
 
 			//E-mail found in the 'Students' collection - looking to see if password matches
 			}else{
-				await collection.findOne({"password": playerData.password},async (findError, result)=>{
-					if(findError){
-						console.log("findError")
-					}
-
-					//Password didnt match
-					if(!result){
-						console.log("Password Incorrect")
-
+				console.log(result);
+				if(result.password === playerData.password){
 					//Password matches, Teacher logged in
-					}else{
-						res.send("Student logged in")
-					}
-				})
+					res.send("Student logged in")
+				}else{
+					//Password didnt match
+					console.log("Wrong Password")
+					res.send("User not found")
+				}
 			}
 		})
 
@@ -157,41 +145,22 @@ router.post('/login', async (req, res) => {
 					
 					//Username found in the 'Teachers' collection - looking to see if password matches
 					}else{
-						await collection.findOne({"password": playerData.password},async (findError, result)=>{
-							if(findError){
-								console.log("findError")
-							}
-
-							//Password didnt match
-							if(!result){
-								console.log("Password Incorrect")
-							
-							//Password matches, Teacher logged in
-							}else{
-								res.send("Teacher logged in")
-							}
-						})
+						if(result.password === playerData.password){
+							res.send("Teacher logged in")
+						}else{
+							console.log("Wrong Password")
+							res.send("User not found")
+						}
 					}
 				})
-
-
 			//Username found in the 'Students' collection - looking to see if password matches
 			}else{
-				await collection.findOne({"password": playerData.password},async (findError, result)=>{
-					if(findError){
-						console.log("findError")
-					}
-
-					//Password didnt match
-					if(!result){
-						console.log("Password Incorrect");
-						res.send("User not found");
-
-					//Password matches, Teacher logged in
-					}else{
-						res.send("Student logged in");
-					}
-				})
+				if(result.password === playerData.password){
+					res.send("Student logged in")
+				}else{
+					console.log("Wrong Password")
+					res.send("User not found")
+				}
 			}
 		})
 
@@ -207,45 +176,63 @@ router.post('/login', async (req, res) => {
 
 router.post('/getuserinfo', async (req, res)=> {
 	var playerData = req.body;
-	console.log("GetUserInfo:" + playerData.username)
-
-	console.log("Post Request: /getuserinfo?username=" + playerData.username);
+	console.log("GetUserInfo:" + playerData.input)
 
 	//specifies the database within the cluster and collection within the database
 	var collection = client.db('UsersDB').collection('Students');
 
+
+	if(playerData.input.includes("@")){
+
+		await collection.findOne({"email": new RegExp(playerData.input, "i") }, async (findError, result) =>{
+			
+			if(findError) {
+				console.log("MongoDB - Find: Error");
+				console.log(findError);
+			}
+
+			if (!result) {
+				console.log("StudentInfo not found");
+				var collection = client.db('UsersDB').collection('Teachers');
+				await collection.findOne({"email": new RegExp(playerData.input, "i") }, function (findError, result) {
+		
+					//Sends the player data back to Unity as a string
+					if (!result) {
+						console.log("Teacher not found");
+						res.send("Info not found");
+					}
+					else {
+						console.log("TeacherInfo Sent");
+						res.send(`Teacher,${result._id},${result.email},${result.first_name},${result.last_name},${result.school}`);
+					}
+				})}
+			else {
+				console.log("StudentInfo Sent");
+				res.send(`Student,${result._id},${result.email},${result.first_name},${result.last_name},${result.school},${result.username}`);
+			}
+		});
+	}else{
+		
+		await collection.findOne({"username": new RegExp(playerData.input, "i") }, async (findError, result) =>{
+			
+			if(findError) {
+				console.log("MongoDB - Find: Error");
+				console.log(findError);
+			}
+
+			if (!result) {
+				res.send("Info not found");
+				}
+			else {
+				console.log("StudentInfo Sent");
+				res.send(`Student,${result._id},${result.email},${result.first_name},${result.last_name},${result.school},${result.username}`);
+			}
+		});
+	}
+
+
 	//Returns a single document, if one fits the conditions
-	await collection.findOne({
-		"username": new RegExp(playerData.username, "i"),
-		"email": new RegExp(playerData.email, "i") }, 
-		async (findError, result) =>{
-		//Check for Errors
-		if (!findError) {
-			console.log("MongoDB - Find: No Errors");
-		}else {
-			console.log("MongoDB - Find: Error");
-			console.log(findError);
-		}
-		if (!result) {
-			console.log("StudentInfo not found");
-			var collection = client.db('UsersDB').collection('Teachers');
-			await collection.findOne({"email": new RegExp(playerData.email, "i") }, function (findError, result) {
 	
-				//Sends the player data back to Unity as a string
-				if (!result) {
-					console.log("Teacher not found");
-					res.send("Info not found");
-				}
-				else {
-					console.log("TeacherInfo Sent");
-					res.send(`Teacher,${result._id},${result.email},${result.first_name},${result.last_name},${result.school}`);
-				}
-			})}
-		else {
-			console.log("StudentInfo Sent");
-			res.send(`Student,${result._id},${result.email},${result.first_name},${result.last_name},${result.school},${result.username}`);
-		}
-	});
 });
 
 router.post('/getexp', function (req, res) {
