@@ -440,4 +440,36 @@ router.post('/insertHomework', async (req, res) => {
 	}
 });
 
+router.post('/getIslands', async (req, res) => {
+	
+	var collection = client.db('UsersDB').collection('Islands');
+
+	let IslandData = req.body;
+	console.log(IslandData);
+
+	collection.find({"subject":IslandData.subject}).toArray().then((result) => {
+		if(!result){
+			console.log("No result")
+			res.send("Info not found")
+		}else{
+			
+			var islandsString = "";
+			
+			for(var i = 0; i<result.length;i++){
+				islandsString += `${result[i]._id}+${result[i].name}+${result[i].subject}+${result[i].islandTemplate}+${result[i].creator}:`;
+				for(var j = 0; j < result[i].homework.length; j++){
+					var temp = result[i].homework[j];
+					islandsString += temp.title + '+' + temp.content + '+' + temp.duedate + '+' + temp.exp + '+' + temp.posX + '+' + temp.posY + '+' + temp.posZ + "!";
+					}
+				islandsString = islandsString.substring(0, islandsString.length - 1);
+				islandsString += ',';
+			}
+			var StringToSend = islandsString.substring(0, islandsString.length - 1);
+
+			console.log(StringToSend);
+			res.send(StringToSend);
+		}		
+	});
+});
+
 module.exports = router;
