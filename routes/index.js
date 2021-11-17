@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({
 
 var client;
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 MongoClient.connect("mongodb+srv://admin:admin@motedu.fbj4y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", function (connectionError, dbclient) {
 
 	//Check for Errors
@@ -335,7 +336,8 @@ router.post('/signin_student', async (req, res) => {
 							"last_name": studentData.lname, 
 							"school": studentData.school, 
 							"class": studentData.classNum, 
-							"exp": SubjectExp
+							"exp": SubjectExp,
+							"completedHomework":[]
 						});
 						console.log("New student added!");
 						res.send("success");
@@ -424,13 +426,12 @@ router.post('/insertHomework', async (req, res) => {
 			"posZ": HomeworkData.posZ			
 		}
 
-		var ObjectId = require('mongodb').ObjectId; 
-		var id = HomeworkData.islandId;       
-		var o_id = new ObjectId(id);
+       
+		var id = new ObjectId(HomeworkData.islandId);
 		
 	try{
 		await collection.updateOne(
-			{"_id": o_id},
+			{"_id": id},
 			{$push: {homework: ObjectToInsert}}
 		)
 	}
@@ -445,7 +446,7 @@ router.post('/getIslands', async (req, res) => {
 	var collection = client.db('UsersDB').collection('Islands');
 
 	let IslandData = req.body;
-	console.log(IslandData);
+	//console.log(IslandData);
 
 	collection.find({"subject":IslandData.subject}).toArray().then((result) => {
 		if(!result){
@@ -467,6 +468,59 @@ router.post('/getIslands', async (req, res) => {
 			islandsString = islandsString.substring(0, islandsString.length - 1);
 			res.send(islandsString);
 		}		
+	});
+});
+
+router.post('/HomeworkDone', async (req, res) => {
+	
+	let HomeworkDoneData = req.body;
+	//console.log(HomeworkDoneData);
+
+	//1. Add to students CompletedList
+	//2. Add to Student Exp
+
+	var collection = client.db('UsersDB').collection('Students');
+
+	  
+	var id = new ObjectId(HomeworkDoneData.studentId);
+	var subjectExp = "exp." + HomeworkDoneData.subject;
+	var exp = parseInt(HomeworkDoneData.exp)
+
+	var CompletedHomework = {
+		"islandId": HomeworkDoneData.islandId,
+		"posX": HomeworkDoneData.posX,
+		"posY": HomeworkDoneData.posY,
+		"posZ": HomeworkDoneData.posZ			
+	}
+	try{
+		await collection.updateOne(
+			{"_id": id},
+			{$push: {completedHomework: CompletedHomework}, $inc: {[subjectExp]: exp}}
+		)
+		res.send("Sucess");
+	}catch(error){
+		console.log(error);
+		res.send("Error")
+	}
+});
+
+router.post('/GetCompletedHomework', async (req, res) => {
+	
+	let reqData = req.body;
+	//console.log(reqData);
+
+	//1. Responds with a list of completed homework
+
+	var collection = client.db('UsersDB').collection('Students');  
+	var id = new ObjectId(reqData.studentId);
+	
+	await collection.findOne({"_id": id}, async (findError, result) => {
+		var completeHomework = ""
+		for(var i = 0; i < result.completedHomework.length; i++){
+			completeHomework += `${result.completedHomework[i].islandId},${result.completedHomework[i].posX},${result.completedHomework[i].posY},${result.completedHomework[i].posZ}:`
+		}
+		completeHomework = completeHomework.substring(0, completeHomework.length - 1);
+		res.send(completeHomework)
 	});
 });
 
