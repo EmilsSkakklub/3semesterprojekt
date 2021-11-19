@@ -360,7 +360,8 @@ router.post('/signin_student', async (req, res) => {
 							"school": studentData.school, 
 							"class": studentData.classNum, 
 							"exp": SubjectExp,
-							"completedHomework":[]
+							"completedHomework":[],
+							"outfit": ["0", "0", "0", "1", "0", "0", "0", "0", "0", "0", "0", "0"]
 						});
 						console.log("New student added!");
 						res.send("success");
@@ -532,8 +533,6 @@ router.post('/GetCompletedHomework', async (req, res) => {
 	let reqData = req.body;
 	//console.log(reqData);
 
-	//1. Responds with a list of completed homework
-
 	var collection = client.db('UsersDB').collection('Students');  
 	var id = new ObjectId(reqData.studentId);
 	if(id != null){
@@ -557,6 +556,56 @@ router.post('/GetCompletedHomework', async (req, res) => {
 		});
 	}
 	
+});
+
+router.post('/LoadSavedOutfit', async (req, res) => {
+	
+	let reqData = req.body;
+	//console.log(reqData);
+
+	var collection = client.db('UsersDB').collection('Students');  
+	var id = new ObjectId(reqData.studentId);
+	
+	await collection.findOne({"_id": id}, async (findError, result) => {
+		var outfit = ""
+		for(var i = 0; i < result.outfit.length; i++){
+			outfit += `${result.outfit[i]},`
+		}
+		outfit = outfit.substring(0, outfit.length - 1);
+		res.send(outfit)
+	});
+});
+router.post('/SaveOutfit', async (req, res) => {
+	
+	let reqData = req.body;
+	//console.log(reqData);
+
+	var collection = client.db('UsersDB').collection('Students');  
+	var id = new ObjectId(reqData.studentId);
+	try{
+		await collection.updateOne(
+			{"_id": id},
+			{$set: {
+				"outfit.0": reqData.item0,
+				"outfit.1": reqData.item1,
+				"outfit.2": reqData.item2,
+				"outfit.3": reqData.item3,
+				"outfit.4": reqData.item4,
+				"outfit.5": reqData.item5,
+				"outfit.6": reqData.item6,
+				"outfit.7": reqData.item7,
+				"outfit.8": reqData.item8,
+				"outfit.9": reqData.item9,
+				"outfit.10": reqData.item10,
+				"outfit.11": reqData.item11
+			}}
+		)
+		res.send("Sucess")
+	}catch{
+		res.send("Error")
+	}
+	
+
 });
 
 module.exports = router;
