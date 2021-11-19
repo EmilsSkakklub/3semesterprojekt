@@ -297,6 +297,29 @@ router.post('/gethighscores', async (req, res) => {
 	});
 });
 
+router.post('/getAllStudents', async (req, res) => {
+
+	//specifies the database within the cluster and collection within the database
+	var collection = client.db('UsersDB').collection('Students');
+
+	collection.find({}).toArray().then((result) => {
+		if(!result){
+			console.log("No result")
+			res.send("Info not found")
+		}else{
+			var studentsString = "";
+
+			for(var i = 0; i<result.length;i++){
+				studentsString += `${result[i]._id}+${result[i].username}+${result[i].email}+${result[i].first_name}+${result[i].last_name}+${result[i].class},`
+			}
+			var StringToSend = studentsString.substring(0, studentsString.length - 1);
+
+			console.log(StringToSend);
+			res.send(StringToSend);
+		}		
+	});
+});
+
 
 
 router.post('/signin_student', async (req, res) => {
@@ -513,15 +536,27 @@ router.post('/GetCompletedHomework', async (req, res) => {
 
 	var collection = client.db('UsersDB').collection('Students');  
 	var id = new ObjectId(reqData.studentId);
+	if(id != null){
+		await collection.findOne({"_id": id}, async (findError, result) => {
+			var completeHomework = ""
+			for(var i = 0; i < result.completedHomework.length; i++){
+				completeHomework += `${result.completedHomework[i].islandId},${result.completedHomework[i].posX},${result.completedHomework[i].posY},${result.completedHomework[i].posZ}:`
+			}
+			completeHomework = completeHomework.substring(0, completeHomework.length - 1);
+			res.send(completeHomework)
+		});
+	}
+	else{
+		await collection.find({}).toArray().then((result) => {
+			var completeHomework = ""
+			for(var i = 0; i < result.completedHomework.length; i++){
+				completeHomework += `${result.completedHomework[i].islandId},${result.completedHomework[i].posX},${result.completedHomework[i].posY},${result.completedHomework[i].posZ}:`
+			}
+			completeHomework = completeHomework.substring(0, completeHomework.length - 1);
+			res.send(completeHomework)
+		});
+	}
 	
-	await collection.findOne({"_id": id}, async (findError, result) => {
-		var completeHomework = ""
-		for(var i = 0; i < result.completedHomework.length; i++){
-			completeHomework += `${result.completedHomework[i].islandId},${result.completedHomework[i].posX},${result.completedHomework[i].posY},${result.completedHomework[i].posZ}:`
-		}
-		completeHomework = completeHomework.substring(0, completeHomework.length - 1);
-		res.send(completeHomework)
-	});
 });
 
 module.exports = router;
