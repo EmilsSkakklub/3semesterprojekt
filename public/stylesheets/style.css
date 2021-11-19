@@ -450,3 +450,27 @@ a {
 
   z-index: 2;
 }
+
+#divClass{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(80%, 210%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}
+
+#divPsw{
+  display: none;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(70%, 370%);
+  background-color: #62ba5d;
+
+  z-index: 2;
+}

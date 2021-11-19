@@ -26,6 +26,12 @@ block scripts
                 
                 var xSchool = document.getElementById("divSchool");
                     xSchool.style.display = "none";
+                    
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";
+                
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none";
             });
 
             $("#lName").click(function(){
@@ -44,6 +50,12 @@ block scripts
                 
                 var xSchool = document.getElementById("divSchool");
                     xSchool.style.display = "none";
+
+                var xclassNum = document.getElementById("divclass");
+                    xclassNum.style.display = "none";
+                
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none";
             });
 
             $("#username").click(function(){
@@ -62,6 +74,12 @@ block scripts
                 
                 var xSchool = document.getElementById("divSchool");
                     xSchool.style.display = "none";
+                
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";
+                
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none";
             });
 
             $("#email").click(function(){
@@ -78,8 +96,14 @@ block scripts
                 var xuName = document.getElementById("divUN");
                     xuName.style.display = "none";
                 
-                 var xSchool = document.getElementById("divSchool");
+                var xSchool = document.getElementById("divSchool");
                     xSchool.style.display = "none";
+
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";
+                
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none";
             });
 
             $("#school").click(function(){
@@ -96,14 +120,99 @@ block scripts
                 var xuName = document.getElementById("divUN");
                     xuName.style.display = "none";
                 
-                 var xEmail = document.getElementById("divEMAIL");
+                var xEmail = document.getElementById("divEMAIL");
                     xEmail.style.display = "none";
+                
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";  
+
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none"; 
+
+                
             });
+
+            $("#classNum").click(function(){
+                console.log("Clicked");
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "none";
+            });
+
+            $("#password").click(function(){
+                console.log("Clicked");
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";
+            });
+
+            $("#rePassword").click(function(){
+                console.log("Clicked");
+                var xpassword = document.getElementById("divPsw");
+                    xpassword.style.display = "block";
+
+                var xfName = document.getElementById("divFN");
+                    xfName.style.display = "none";
+
+                var xlName = document.getElementById("divLN");
+                    xlName.style.display = "none";
+
+                var xuName = document.getElementById("divUN");
+                    xuName.style.display = "none";
+                
+                var xEmail = document.getElementById("divEMAIL");
+                    xEmail.style.display = "none";
+                
+                var xSchool = document.getElementById("divSchool");
+                    xSchool.style.display = "none";
+
+                var xclassNum = document.getElementById("divClass");
+                    xclassNum.style.display = "none";
+            });
+
 
             
 
 
-            $("#login").on('click', function(){
+           
+            
+
+
+            $("#classNum").on('click', function(){
                 var fname = $('#fName').val();
                 var lname = $('#lName').val();
                 var username = $('#username').val();
@@ -297,6 +406,12 @@ block content
 
             #divSchool
                 p Enter your school's name.
+        
+            #divClass
+                p Enter your grade here.
+
+            #divPsw
+                p keep it secret, keep it safe.
             
 
         #divH
