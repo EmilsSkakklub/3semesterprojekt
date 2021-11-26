@@ -558,6 +558,36 @@ router.post('/GetCompletedHomework', async (req, res) => {
 	
 });
 
+router.post('/GetAllCompletedHomework', async (req, res) => {
+	
+	var collection = client.db('UsersDB').collection('Students');  
+
+	collection.find({}).toArray().then((result) => {
+		if(result == null){
+			console.log("Reeeee");
+		}
+		else if(result != null){
+
+			var completedHomeworkString = "";
+			for(var i = 0; i < result.length; i++){
+				if(result[i].completedHomework.length > 0){
+					for(var j = 0; j < result[i].completedHomework.length; j++){
+						completedHomeworkString += result[i].completedHomework[j].islandId + "+" + result[i].completedHomework[j].posX + "+" + result[i].completedHomework[j].posY + "+"+ result[i].completedHomework[j].posZ + ">";
+					}
+					completedHomeworkString = completedHomeworkString.substring(0, completedHomeworkString.length - 1);
+				}
+				else{
+					completedHomeworkString += "*";
+				}
+				completedHomeworkString += ","
+			}
+
+			completedHomeworkString = completedHomeworkString.substring(0, completedHomeworkString.length - 1);
+			res.send(completedHomeworkString);
+		}
+	});	
+});
+
 router.post('/LoadSavedOutfit', async (req, res) => {
 	
 	let reqData = req.body;
