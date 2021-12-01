@@ -588,6 +588,34 @@ router.post('/GetAllCompletedHomework', async (req, res) => {
 	});	
 });
 
+router.post('/GetHomeworkInfo', async(req, res) =>{
+	var collection = client.db('UsersDB').collection('Islands'); 
+	
+	collection.find({}).toArray().then((result) => {
+		if(result == null){
+			console.log("Reeeee!!!");
+		}
+		else if(result != null){
+			var islandsString = "";
+			
+			for(var i = 0; i<result.length;i++){
+				islandsString += `${result[i]._id}+${result[i].name}+${result[i].subject}+${result[i].islandTemplate}+${result[i].creator}:`;
+				for(var j = 0; j < result[i].homework.length; j++){
+					var tempHomework = result[i].homework[j];
+					islandsString += tempHomework.title + '+' + tempHomework.content + '+' + tempHomework.duedate + '+' + tempHomework.exp + '+' + tempHomework.posX + '+' + tempHomework.posY + '+' + tempHomework.posZ + "!";
+					}
+				islandsString = islandsString.substring(0, islandsString.length - 1);
+				islandsString += ',';
+			}
+			islandsString = islandsString.substring(0, islandsString.length - 1);
+			res.send(islandsString);
+		}
+	});
+});
+
+
+
+
 router.post('/LoadSavedOutfit', async (req, res) => {
 	
 	let reqData = req.body;
